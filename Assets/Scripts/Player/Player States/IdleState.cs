@@ -15,7 +15,7 @@ public class IdleState : IState
     public void Update()
     {
         if (Input.GetKey("w")){
-            player.stateMachine.ChangeState(player.stateMachine.runState);
+            player.stateMachine.ChangeState(player.runState);
         }
 
         //  if (Input.GetKey("s")){

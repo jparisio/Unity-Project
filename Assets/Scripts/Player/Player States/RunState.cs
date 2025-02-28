@@ -17,11 +17,11 @@ public class RunState : IState
     public void Update()
     {
         if (Input.GetKey("s")){
-            player.stateMachine.ChangeState(player.stateMachine.idleState);
+            player.stateMachine.ChangeState(player.idleState);
         }
 
         if (Input.GetKey("j")){
-            player.stateMachine.ChangeState(player.stateMachine.jumpState);
+            player.stateMachine.ChangeState(player.jumpState);
         }
     }
 
