@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 878aefd75248a2046904bc20188aeef8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 220038
+  packageName: PicoChan
+  packageVersion: 1.1.0
+  assetPath: Assets/Picola/PicoChan/Materials/pico_eye_m.mat
+  uploadId: 697236

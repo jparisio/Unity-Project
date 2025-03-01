@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7b2a83947805e6446b467d3dff391145
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 220038
+  packageName: PicoChan
+  packageVersion: 1.1.0
+  assetPath: Assets/Picola/PicoChan/Materials/pico_bag_m.mat
+  uploadId: 697236
