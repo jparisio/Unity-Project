@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     [SerializeField] public CharacterController characterController;
     [SerializeField] public Animator animator;
+    [SerializeField] private Transform cam;
 
 
     [Header("Movement")]
@@ -57,11 +58,6 @@ public class PlayerController : MonoBehaviour
 
     public void HandleRotation(){
         //move in the diretion of the camera
-    }
-
-    public void HandleAnimation(){
-        animator.SetFloat("X", characterController.velocity.x);
-        animator.SetFloat("Y", characterController.velocity.z);
     }
 
 }

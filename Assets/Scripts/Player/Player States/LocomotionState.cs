@@ -20,8 +20,8 @@ private PlayerController player;
     {
         player.HandleMovement();
         
-        player.animator.SetFloat("X", player.characterController.velocity.x);
-        player.animator.SetFloat("Y", player.characterController.velocity.z);
+        player.animator.SetFloat("X", player.characterController.velocity.x, .2f, Time.deltaTime);
+        player.animator.SetFloat("Y", player.characterController.velocity.z, .2f, Time.deltaTime);
 
         if(Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0){
             player.stateMachine.ChangeState(player.idleState);
