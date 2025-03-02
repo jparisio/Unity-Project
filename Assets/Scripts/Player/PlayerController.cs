@@ -50,12 +50,8 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 moveDirection = GetCameraRelativeDirection(movementInput);
             characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
-
-            // Rotate only when moving forward
-            if (vertical > 0.1f)
-            {
-                RotateTowardsCameraForward();
-            }
+            RotatePlayer(moveDirection);
+            
         }
 
         // Pass movement input to Animator
@@ -63,26 +59,28 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("MoveY", movementInput.z);
     }
 
-    private Vector3 GetCameraRelativeDirection(Vector3 inputDirection)
+    private Vector3 GetCameraRelativeDirection(Vector3 direction)
     {
-        // Get camera forward (ignoring tilt)
-        Vector3 cameraForward = cam.forward;
-        cameraForward.y = 0;
-        cameraForward.Normalize();
+        Vector3 forward = cam.forward;
+        Vector3 right = cam.right;
 
-        Vector3 cameraRight = cam.right;
-        cameraRight.y = 0;
-        cameraRight.Normalize();
+        forward.y = 0f;
+        right.y = 0f;
 
-        // Convert input direction to world-space movement
-        return (cameraForward * inputDirection.z + cameraRight * inputDirection.x).normalized;
+        forward.Normalize();
+        right.Normalize();
+
+        return forward * direction.z + right * direction.x;
     }
 
-    private void RotateTowardsCameraForward()
+    private void RotatePlayer(Vector3 direction)
     {
-        Vector3 cameraForward = cam.forward;
-        cameraForward.y = 0; // Keep rotation horizontal
-        Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        if (direction.magnitude > 0.1f)
+        {
+            // Smoothly rotate towards movement direction
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
     }
+
 }
