@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform cam; // Assign Cinemachine Virtual Camera Transform
 
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] public float moveSpeed = 5f;
     [SerializeField] private float rotationSpeed = 10f;
 
     [Header("States")]
@@ -41,10 +41,8 @@ public class PlayerController : MonoBehaviour
 
     public void HandleMovement()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
 
-        Vector3 movementInput = new Vector3(horizontal, 0, vertical);
+        Vector3 movementInput = GetInputVector();
 
         if (movementInput.magnitude > 0.1f) // Prevents small jittery input
         {
@@ -53,10 +51,6 @@ public class PlayerController : MonoBehaviour
             RotatePlayer(moveDirection);
             
         }
-
-        // Pass movement input to Animator
-        animator.SetFloat("MoveX", movementInput.x);
-        animator.SetFloat("MoveY", movementInput.z);
     }
 
     private Vector3 GetCameraRelativeDirection(Vector3 direction)
@@ -81,6 +75,14 @@ public class PlayerController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
+    }
+
+    public Vector3 GetInputVector()
+    {
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        return new Vector3(horizontal, 0, vertical);
     }
 
 }

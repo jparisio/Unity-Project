@@ -17,7 +17,7 @@ private PlayerController player;
 
     public void Update()
     {
-        if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0){
+        if(player.GetInputVector() != Vector3.zero){
             player.stateMachine.ChangeState(player.locomotionState);
         }
     }
