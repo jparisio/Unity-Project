@@ -13,18 +13,19 @@ private PlayerController player;
     public void Enter()
     {
         Debug.Log("Entering locomotion");
-        player.animator.SetBool("isWalking", true);
+        player.animator.SetBool("isMoving", true);
     }
 
     public void Update()
     {
+
         player.HandleMovement();
         
         //handle anim blending for the running state
         HandleAnims();
 
-        // Transition to Idle State when no input is detected
-        if(player.GetInputVector() == Vector3.zero){
+        // Transition to Idle State when no input and no speed
+        if(player.GetInputVector() == Vector3.zero && player.characterController.velocity.magnitude < 0.1f){
             player.stateMachine.ChangeState(player.idleState);
         }
     }
@@ -33,7 +34,7 @@ private PlayerController player;
     public void Exit()
     {
         Debug.Log("Exiting Locomotion State");
-        player.animator.SetBool("isWalking", false);
+        player.animator.SetBool("isMoving", false);
     }
 
 

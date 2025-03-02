@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] public float moveSpeed = 5f;
     [SerializeField] private float rotationSpeed = 10f;
+    public Vector3 previousMoveDirection;
 
     [Header("States")]
     public LocomotionState locomotionState;
@@ -44,11 +46,12 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movementInput = GetInputVector();
 
-        if (movementInput.magnitude > 0.1f) // Prevents small jittery input
+        if (movementInput.magnitude > 0.1f)
         {
             Vector3 moveDirection = GetCameraRelativeDirection(movementInput);
             characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
             RotatePlayer(moveDirection);
+            previousMoveDirection = moveDirection;
             
         }
     }
@@ -78,11 +81,12 @@ public class PlayerController : MonoBehaviour
     }
 
     public Vector3 GetInputVector()
-    {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        {
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
 
-        return new Vector3(horizontal, 0, vertical);
-    }
+            return new Vector3(horizontal, 0, vertical);
+        }
+
 
 }
