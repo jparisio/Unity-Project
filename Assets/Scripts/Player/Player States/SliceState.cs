@@ -36,7 +36,7 @@ private Coroutine slowTimeCoroutine;
         player.animator.SetFloat("X", -blendInput.y);
         player.animator.SetFloat("Y", -blendInput.x);
 
-        if (Input.GetKeyDown("e"))
+        if (Input.GetMouseButtonDown(0)) 
         {
             // Rotate cut plane 180 degrees
             player.cutPlane.rotation *= Quaternion.Euler(0, 0, 180);
@@ -91,6 +91,8 @@ private Coroutine slowTimeCoroutine;
         rb.interpolation = RigidbodyInterpolation.Interpolate;
         MeshCollider collider = obj.AddComponent<MeshCollider>();
         collider.convex = true;
+        //script to fade away
+        obj.AddComponent<FadeAndDestroy>();
 
         rb.AddExplosionForce(200, obj.transform.position, 20);
     }
