@@ -6,6 +6,7 @@ public class SliceState : IState
 {
 
 private PlayerController player;
+private Coroutine slowTimeCoroutine;
 
     public SliceState(PlayerController player){
         this.player = player;
@@ -19,7 +20,8 @@ private PlayerController player;
         player.cutPlane.gameObject.SetActive(true);
         player.zoomedCam.Priority = 10;    
         player.normalCam.Priority = 0;
-        player.StartCoroutine(SlowTime(0.2f));
+        if(slowTimeCoroutine != null) player.StopCoroutine(slowTimeCoroutine);
+        slowTimeCoroutine = player.StartCoroutine(SlowTime(0.2f));
     }
 
     public void Update()
@@ -57,6 +59,9 @@ private PlayerController player;
         player.cutPlane.gameObject.SetActive(false);
         player.zoomedCam.Priority = 0;
         player.normalCam.Priority = 10;
+
+        if(slowTimeCoroutine != null) player.StopCoroutine(slowTimeCoroutine);
+        slowTimeCoroutine = player.StartCoroutine(SlowTime(1f));
     }
 
 
@@ -81,15 +86,15 @@ private PlayerController player;
         }
     }
 
-    public void AddHullComponents(GameObject go)
+    public void AddHullComponents(GameObject obj)
     {
-        go.layer = 9;
-        Rigidbody rb = go.AddComponent<Rigidbody>();
+        obj.layer = 9;
+        Rigidbody rb = obj.AddComponent<Rigidbody>();
         rb.interpolation = RigidbodyInterpolation.Interpolate;
-        MeshCollider collider = go.AddComponent<MeshCollider>();
+        MeshCollider collider = obj.AddComponent<MeshCollider>();
         collider.convex = true;
 
-        rb.AddExplosionForce(100, go.transform.position, 20);
+        rb.AddExplosionForce(200, obj.transform.position, 20);
     }
 
     public SlicedHull SliceObject(GameObject obj, Material crossSectionMaterial = null)
