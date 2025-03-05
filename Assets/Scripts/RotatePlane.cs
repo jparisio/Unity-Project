@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class RotatePlane : MonoBehaviour
 {
-    public float rotationSpeed = 700f; // Adjust the speed of rotation
+    public float rotationSpeed = 700f; 
 
     void Update()
     {
