@@ -41,6 +41,7 @@ private Coroutine slowTimeCoroutine;
             // Rotate cut plane 180 degrees
             player.cutPlane.rotation *= Quaternion.Euler(0, 0, 180);
             Slice();
+            player.impulseSource.GenerateImpulse(.1f);
         }
 
 
