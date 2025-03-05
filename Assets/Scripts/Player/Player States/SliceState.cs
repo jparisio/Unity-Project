@@ -29,15 +29,12 @@ private Coroutine slowTimeCoroutine;
         // Get the UP direction of the plane
         Vector3 forward = player.cutPlane.up; 
 
-        // Convert to 2D space (ignore Z component)
         Vector2 blendInput = new Vector2(forward.x, forward.y);
 
         // Normalize to keep values between -1 and 1
         blendInput.Normalize();
-
-        // Pass values into animator
-        player.animator.SetFloat("X", blendInput.x);
-        player.animator.SetFloat("Y", blendInput.y);
+        player.animator.SetFloat("X", -blendInput.y);
+        player.animator.SetFloat("Y", -blendInput.x);
 
         if (Input.GetKeyDown("e"))
         {
