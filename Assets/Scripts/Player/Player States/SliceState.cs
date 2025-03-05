@@ -27,7 +27,7 @@ private Coroutine slowTimeCoroutine;
     public void Update()
     {
         // Get the UP direction of the plane
-        Vector3 forward = player.cutPlane.up; 
+        Vector3 forward = player.cutPlane.localRotation * Vector3.up; 
 
         Vector2 blendInput = new Vector2(forward.x, forward.y);
 
@@ -67,8 +67,12 @@ private Coroutine slowTimeCoroutine;
     {
         Collider[] hits = Physics.OverlapBox(player.cutPlane.position, new Vector3(5, 0.1f, 5), player.cutPlane.rotation, LayerMask.GetMask("Sliceable"));
 
-        if (hits.Length <= 0)
+        if (hits.Length <= 0){
             return;
+        }
+        
+        //hit something so create sparks
+        player.slashParticles.Play();
 
         for (int i = 0; i < hits.Length; i++)
         {

@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public CinemachineCamera zoomedCam;
     public Material fishTexture;
     public CinemachineImpulseSource impulseSource;
+    public ParticleSystem slashParticles;
 
     [Header("Movement")]
     [SerializeField] public float moveSpeed = 5f;
