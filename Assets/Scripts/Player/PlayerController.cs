@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -9,6 +10,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public CharacterController characterController;
     [SerializeField] public Animator animator;
     [SerializeField] private Transform cam; // Assign Cinemachine Virtual Camera Transform
+    public Transform cutPlane;
+    public CinemachineCamera normalCam;
+    public CinemachineCamera zoomedCam;
 
     [Header("Movement")]
     [SerializeField] public float moveSpeed = 5f;
@@ -19,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public LocomotionState locomotionState;
     public FishCastState fishCastState;
     public IdleState idleState;
+    public SliceState sliceState;
 
     private void Awake()
     {
@@ -37,8 +42,9 @@ public class PlayerController : MonoBehaviour
         idleState = new IdleState(this);
         locomotionState = new LocomotionState(this);
         fishCastState = new FishCastState(this);
+        sliceState = new SliceState(this);
 
-        stateMachine.Initialize(locomotionState);
+        stateMachine.Initialize(idleState);
     }
 
     public void HandleMovement()

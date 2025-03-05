@@ -20,6 +20,10 @@ private PlayerController player;
         if(player.GetInputVector() != Vector3.zero){
             player.stateMachine.ChangeState(player.locomotionState);
         }
+
+        if(Input.GetKey("f")){
+            player.stateMachine.ChangeState(player.sliceState);
+        }
     }
 
     public void Exit()

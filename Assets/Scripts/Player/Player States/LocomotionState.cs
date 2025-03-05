@@ -25,7 +25,7 @@ private PlayerController player;
         HandleAnims();
 
         // Transition to Idle State when no input and no speed
-        if(player.GetInputVector() == Vector3.zero && player.characterController.velocity.magnitude < 0.1f){
+        if(player.GetInputVector() == Vector3.zero){
             player.stateMachine.ChangeState(player.idleState);
         }
     }
