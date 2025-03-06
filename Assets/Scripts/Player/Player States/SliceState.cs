@@ -25,6 +25,9 @@ private int slashCountMax = 7;
         if(slowTimeCoroutine != null) player.StopCoroutine(slowTimeCoroutine);
         slowTimeCoroutine = player.StartCoroutine(SlowTime(0.1f));
         slashCount = 0;
+
+        //disbale interactor 
+        player.GetComponent<Interactor>().enabled = false;
     }
 
     public void Update()
@@ -64,6 +67,9 @@ private int slashCountMax = 7;
 
         if(slowTimeCoroutine != null) player.StopCoroutine(slowTimeCoroutine);
         slowTimeCoroutine = player.StartCoroutine(SlowTime(1f));
+
+        //re-enable interactor
+        player.GetComponent<Interactor>().enabled = true;
     }
 
 
@@ -100,7 +106,7 @@ private int slashCountMax = 7;
         MeshCollider collider = obj.AddComponent<MeshCollider>();
         collider.convex = true;
         //script to fade away
-        obj.AddComponent<FadeAndDestroy>();
+        obj.AddComponent<MeatInteractable>();
 
         rb.AddExplosionForce(200, obj.transform.position, 20);
     }
