@@ -7,6 +7,8 @@ public class SliceState : IState
 
 private PlayerController player;
 private Coroutine slowTimeCoroutine;
+private int slashCount = 0;
+private int slashCountMax = 7;
 
     public SliceState(PlayerController player){
         this.player = player;
@@ -21,7 +23,8 @@ private Coroutine slowTimeCoroutine;
         player.zoomedCam.Priority = 10;    
         player.normalCam.Priority = 0;
         if(slowTimeCoroutine != null) player.StopCoroutine(slowTimeCoroutine);
-        slowTimeCoroutine = player.StartCoroutine(SlowTime(0.2f));
+        slowTimeCoroutine = player.StartCoroutine(SlowTime(0.1f));
+        slashCount = 0;
     }
 
     public void Update()
@@ -42,10 +45,11 @@ private Coroutine slowTimeCoroutine;
             player.cutPlane.rotation *= Quaternion.Euler(0, 0, 180);
             Slice();
             player.impulseSource.GenerateImpulse(.1f);
+            slashCount++;
         }
 
 
-        if(Input.GetKey("q")){
+        if(slashCount >= slashCountMax){
             player.stateMachine.ChangeState(player.idleState);
         }
     }
