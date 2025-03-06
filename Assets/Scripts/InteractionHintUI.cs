@@ -37,7 +37,7 @@ public class InteractionHintUI : MonoBehaviour
     public void HideHint()
     {
         canvasGroup.DOFade(0f, disappearDuration).SetEase(Ease.InBack)
-            .OnComplete(() => gameObject.SetActive(false));
+            .OnComplete(() => Destroy(gameObject));
         transform.DOScale(Vector3.zero, disappearDuration).SetEase(Ease.InBack);
     }
 
