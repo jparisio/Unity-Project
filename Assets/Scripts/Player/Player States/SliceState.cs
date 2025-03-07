@@ -41,15 +41,7 @@ private MMF_ChromaticAberration_URP chromabb;
 
     public void Update()
     {
-        // Get the UP direction of the plane
-        Vector3 forward = player.cutPlane.localRotation * Vector3.up; 
 
-        Vector2 blendInput = new Vector2(forward.x, forward.y);
-
-        // Normalize to keep values between -1 and 1
-        blendInput.Normalize();
-        player.animator.SetFloat("X", -blendInput.y);
-        player.animator.SetFloat("Y", -blendInput.x);
 
         if (Input.GetMouseButtonDown(0)) 
         {
@@ -61,8 +53,18 @@ private MMF_ChromaticAberration_URP chromabb;
             slashCount++;
         }
 
+        // Get the UP direction of the plane
+        Vector3 forward = player.cutPlane.localRotation * Vector3.up;
 
-        if(slashCount >= slashCountMax){
+        Vector2 blendInput = new Vector2(forward.x, forward.y);
+
+        // Normalize to keep values between -1 and 1
+        blendInput.Normalize();
+        player.animator.SetFloat("X", -blendInput.y);
+        player.animator.SetFloat("Y", -blendInput.x);
+
+
+        if (slashCount >= slashCountMax){
             player.stateMachine.ChangeState(player.idleState);
         }
     }
