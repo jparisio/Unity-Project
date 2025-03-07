@@ -1,6 +1,5 @@
 using System.Collections;
 using MoreMountains.Feedbacks;
-using MoreMountains.FeedbacksForThirdParty;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -18,7 +17,7 @@ public class PlayerController : MonoBehaviour
     public Material fishTexture;
     public CinemachineImpulseSource impulseSource;
     public ParticleSystem slashParticles;
-    public MMFeedbacks feedbacks;
+    public MMF_Player feedbacks;
     public MMFeedbacks slashFeedbacks;
 
     [Header("Movement")]

@@ -1,6 +1,8 @@
 using UnityEngine;
 using EzySlice;
 using System.Collections;
+using MoreMountains;
+using MoreMountains.FeedbacksForThirdParty;
 
 public class SliceState : IState
 {
@@ -74,6 +76,11 @@ private int slashCountMax = 5;
         //re-enable interactor
         player.GetComponent<Interactor>().enabled = true;
 
+        //reset chrom abb
+        MMF_ChromaticAberration_URP chromabb = player.feedbacks.GetFeedbackOfType<MMF_ChromaticAberration_URP>();
+        AnimationCurve zeroCurve = AnimationCurve.Constant(0f, 1f, 0f);
+        chromabb.Intensity = zeroCurve;
+        chromabb.Play(Vector3.zero);
     }
 
 
