@@ -8,7 +8,7 @@ public class SliceState : IState
 private PlayerController player;
 private Coroutine slowTimeCoroutine;
 private int slashCount = 0;
-private int slashCountMax = 7;
+private int slashCountMax = 5;
 
     public SliceState(PlayerController player){
         this.player = player;

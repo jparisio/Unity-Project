@@ -8,7 +8,7 @@ public class InteractionHintUI : MonoBehaviour
 
     [SerializeField] private float appearDuration = 0.5f;
     [SerializeField] private float disappearDuration = 0.3f;
-    private Vector3 offset = new Vector3(0, 1.25f, 0); 
+    private Vector3 offset = new Vector3(0, 0.25f, 0); 
 
     private void Awake()
     {
@@ -45,12 +45,23 @@ public class InteractionHintUI : MonoBehaviour
     {
         if (target == null) return;
 
-        // Update position to follow the interactable object
-        transform.position = target.position + offset;
+        // Base position with offset
+        Vector3 newPosition = target.position + offset;
 
-        // Make sure it always faces the player 
+        // Direction from target to the camera
+        Vector3 toCamera = (Camera.main.transform.position - newPosition).normalized;
+
+        // Move slightly towards the camera
+        float moveAmount = 1.2f;
+        newPosition += toCamera * moveAmount;
+
+        // Apply new position
+        transform.position = newPosition;
+
+        // Make sure it always faces the player
         transform.LookAt(Camera.main.transform);
         transform.Rotate(0, 180, 0);
     }
+
 
 }
