@@ -28,6 +28,8 @@ private int slashCountMax = 5;
 
         //disbale interactor 
         player.GetComponent<Interactor>().enabled = false;
+        //start cool feedbacks
+        player.feedbacks.PlayFeedbacks();
     }
 
     public void Update()
@@ -47,7 +49,8 @@ private int slashCountMax = 5;
             // Rotate cut plane 180 degrees
             player.cutPlane.rotation *= Quaternion.Euler(0, 0, 180);
             Slice();
-            player.impulseSource.GenerateImpulse(.1f);
+            // player.impulseSource.GenerateImpulse(.1f);
+            player.slashFeedbacks.PlayFeedbacks();
             slashCount++;
         }
 
@@ -70,6 +73,7 @@ private int slashCountMax = 5;
 
         //re-enable interactor
         player.GetComponent<Interactor>().enabled = true;
+
     }
 
 

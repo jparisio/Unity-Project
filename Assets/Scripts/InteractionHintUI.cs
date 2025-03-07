@@ -18,7 +18,7 @@ public class InteractionHintUI : MonoBehaviour
             canvasGroup = gameObject.AddComponent<CanvasGroup>();
         }
 
-        canvasGroup.alpha = 0f; // Start hidden
+        // canvasGroup.alpha = 0f; // Start hidden
         transform.localScale = Vector3.zero; // Start at zero scale
     }
 
@@ -30,15 +30,16 @@ public class InteractionHintUI : MonoBehaviour
 
         // Tween scale to create a popping effect
         transform.DOScale(Vector3.one, appearDuration).SetEase(Ease.OutElastic);
-        canvasGroup.DOFade(1f, appearDuration).SetEase(Ease.InOutSine);
+        // canvasGroup.DOFade(1f, appearDuration).SetEase(Ease.InOutSine);
     }
 
     // Call this to hide the UI
     public void HideHint()
     {
-        canvasGroup.DOFade(0f, disappearDuration).SetEase(Ease.InBack)
-            .OnComplete(() => Destroy(gameObject));
-        transform.DOScale(Vector3.zero, disappearDuration).SetEase(Ease.InBack);
+        // canvasGroup.DOFade(0f, disappearDuration).SetEase(Ease.InBack)
+        //     .OnComplete(() => Destroy(gameObject));
+        transform.DOScale(Vector3.zero, disappearDuration * 0.1f).SetEase(Ease.InBack)
+        .OnComplete(() => Destroy(gameObject));
     }
 
     private void Update()
