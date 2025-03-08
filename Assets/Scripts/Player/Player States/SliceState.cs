@@ -12,7 +12,6 @@ private PlayerController player;
 private Coroutine slowTimeCoroutine;
 private int slashCount = 0;
 private int slashCountMax = 5;
-private AnimationCurve prevCurve;
 private MMF_ChromaticAberration_URP chromabb;
 
     public SliceState(PlayerController player){
@@ -35,7 +34,7 @@ private MMF_ChromaticAberration_URP chromabb;
         player.GetComponent<Interactor>().enabled = false;
         //start cool feedbacks
         chromabb = player.feedbacks.GetFeedbackOfType<MMF_ChromaticAberration_URP>();
-        if (prevCurve != null) chromabb.Intensity = prevCurve;
+        chromabb.RemapIntensityOne = 1f;
         player.feedbacks.PlayFeedbacks();
 
         //lock cursor
@@ -93,10 +92,7 @@ private MMF_ChromaticAberration_URP chromabb;
         player.GetComponent<Interactor>().enabled = true;
 
         //reset chrom abb
-        AnimationCurve zeroCurve = AnimationCurve.Constant(0f, 1f, 0f);
-        //store the previous curve
-        prevCurve = chromabb.Intensity;
-        chromabb.Intensity = zeroCurve;
+        chromabb.RemapIntensityOne = 0f;
         chromabb.Play(Vector3.zero);
 
         //unlock cursor
