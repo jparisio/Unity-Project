@@ -3,6 +3,7 @@ using EzySlice;
 using System.Collections;
 using MoreMountains;
 using MoreMountains.FeedbacksForThirdParty;
+using Unity.Cinemachine;
 
 public class SliceState : IState
 {
@@ -36,6 +37,14 @@ private MMF_ChromaticAberration_URP chromabb;
         chromabb = player.feedbacks.GetFeedbackOfType<MMF_ChromaticAberration_URP>();
         if (prevCurve != null) chromabb.Intensity = prevCurve;
         player.feedbacks.PlayFeedbacks();
+
+        //lock cursor
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        //disable freelook camera movement 
+       
+
        
     }
 
@@ -89,6 +98,10 @@ private MMF_ChromaticAberration_URP chromabb;
         prevCurve = chromabb.Intensity;
         chromabb.Intensity = zeroCurve;
         chromabb.Play(Vector3.zero);
+
+        //unlock cursor
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
 
@@ -119,7 +132,7 @@ private MMF_ChromaticAberration_URP chromabb;
 
     public void AddHullComponents(GameObject obj)
     {
-        obj.layer = 9;
+        obj.layer = LayerMask.NameToLayer("Sliceable");
         Rigidbody rb = obj.AddComponent<Rigidbody>();
         rb.interpolation = RigidbodyInterpolation.Interpolate;
         MeshCollider collider = obj.AddComponent<MeshCollider>();
