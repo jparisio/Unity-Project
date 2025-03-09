@@ -17,6 +17,8 @@ private PlayerController player;
 
     public void Update()
     {
+        player.HandleMovement();
+        
         if(player.GetInputVector() != Vector3.zero){
             player.stateMachine.ChangeState(player.locomotionState);
         }
