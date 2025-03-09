@@ -81,7 +81,7 @@ private MMF_ChromaticAberration_URP chromabb;
     {
         //Debug.Log("Exiting slice State");
         player.animator.SetBool("isSlicing", false);
-        player.cutPlane.gameObject.SetActive(false);
+        player.StartCoroutine(DisableCutPlane());
         player.zoomedCam.Priority = 0;
         player.normalCam.Priority = 10;
 
@@ -162,6 +162,13 @@ private MMF_ChromaticAberration_URP chromabb;
         }
 
         Time.timeScale = targetTimeScale; // Ensure exact final value
+    }
+
+    private IEnumerator DisableCutPlane()
+    {
+        //we need this buffer so the slash particles can play
+        yield return new WaitForSeconds(0.1f);
+        player.cutPlane.gameObject.SetActive(false);
     }
 }
 
