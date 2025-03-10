@@ -68,10 +68,10 @@ public class PlayerController : MonoBehaviour
         }
 
         //add gravity 
-        if(characterController.isGrounded == false)
-        {
-            characterController.Move(Vector3.down * 9.8f * Time.deltaTime);
-        }
+        // if(characterController.isGrounded == false)
+        // {
+        //     characterController.Move(Vector3.down * 9.8f * Time.deltaTime);
+        // }
     }
 
     private Vector3 GetCameraRelativeDirection(Vector3 direction)
