@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
     public CinemachineCamera normalCam;
     public CinemachineCamera zoomedCam;
     public Material fishTexture;
-    public CinemachineImpulseSource impulseSource;
     public ParticleSystem slashParticles;
     public MMF_Player feedbacks;
     public MMFeedbacks slashFeedbacks;
@@ -24,6 +23,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float moveSpeed = 5f;
     [SerializeField] private float rotationSpeed = 10f;
     public Vector3 previousMoveDirection;
+    private Vector3 gravity = Vector3.down * 5f;
 
     [Header("States")]
     public LocomotionState locomotionState;
@@ -61,7 +61,10 @@ public class PlayerController : MonoBehaviour
         if (movementInput.magnitude > 0.1f)
         {
             Vector3 moveDirection = GetCameraRelativeDirection(movementInput);
-            characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
+
+            gravity = characterController.isGrounded ? Vector3.zero : Vector3.down * 5f;
+
+            characterController.Move((moveDirection * moveSpeed + gravity) * Time.deltaTime);
             RotatePlayer(moveDirection);
             previousMoveDirection = moveDirection;
             
