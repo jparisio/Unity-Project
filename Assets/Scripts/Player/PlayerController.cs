@@ -55,7 +55,6 @@ public class PlayerController : MonoBehaviour
 
     public void HandleMovement()
     {
-
         Vector3 movementInput = GetInputVector();
 
         if (movementInput.magnitude > 0.1f)
@@ -66,8 +65,7 @@ public class PlayerController : MonoBehaviour
 
             characterController.Move((moveDirection * moveSpeed + gravity) * Time.deltaTime);
             RotatePlayer(moveDirection);
-            previousMoveDirection = moveDirection;
-            
+            previousMoveDirection = moveDirection; 
         }
 
         //add gravity 
@@ -108,6 +106,4 @@ public class PlayerController : MonoBehaviour
 
             return new Vector3(horizontal, 0, vertical);
         }
-
-
 }

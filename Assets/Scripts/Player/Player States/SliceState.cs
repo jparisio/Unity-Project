@@ -42,9 +42,6 @@ private MMF_ChromaticAberration_URP chromabb;
         Cursor.visible = false;
 
         //disable freelook camera movement 
-       
-
-       
     }
 
     public void Update()
