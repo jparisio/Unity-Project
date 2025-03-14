@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem slashParticles;
     public MMF_Player feedbacks;
     public MMFeedbacks slashFeedbacks;
+    public CinemachineInputAxisController inputAxisController;
 
     [Header("Movement")]
     [SerializeField] public float moveSpeed = 5f;

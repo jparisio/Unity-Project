@@ -42,7 +42,7 @@ private MMF_ChromaticAberration_URP chromabb;
         Cursor.visible = false;
 
         //disable freelook camera movement 
-       
+       player.inputAxisController.enabled = false;
 
        
     }
@@ -98,6 +98,9 @@ private MMF_ChromaticAberration_URP chromabb;
         //unlock cursor
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        //enable freelook camera movement
+        player.inputAxisController.enabled = true;
     }
 
 
