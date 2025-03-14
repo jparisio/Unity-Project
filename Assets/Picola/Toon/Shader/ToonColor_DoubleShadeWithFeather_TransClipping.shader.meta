@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 369d674ae1ba36249bb00e2f73b0cd10
+timeCreated: 1483233167
+licenseType: Store
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 220201
+  packageName: PicoChan Animation Pack
+  packageVersion: 1.0.0
+  assetPath: Assets/Picola/Toon/Shader/ToonColor_DoubleShadeWithFeather_TransClipping.shader
+  uploadId: 498274
