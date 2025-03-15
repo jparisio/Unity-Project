@@ -11,6 +11,7 @@ public class FishWaitState : IState
     public void Enter()
     {
         Debug.Log("Entering fish wait");
+        player.animator.SetBool("isFishing", true);
     }
 
     public void Update()
@@ -25,5 +26,7 @@ public class FishWaitState : IState
     public void Exit()
     {
         Debug.Log("Exiting fish cast State");
+        player.animator.SetBool("isFishing", false);
+        player.animator.SetBool("isCasting", false);
     }
 }

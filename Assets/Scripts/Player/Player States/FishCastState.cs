@@ -16,7 +16,7 @@ public class FishCastState : IState
     {
         Debug.Log("Entering fish cast");
 
-        player.animator.SetBool("isFishing", true);
+        player.animator.SetBool("isCasting", true);
 
         AnimationClip castClip = player.animator.GetCurrentAnimatorClipInfo(0)[0].clip;
         animationDuration = castClip.length;
@@ -25,6 +25,7 @@ public class FishCastState : IState
     public void Update()
     {
         if (Input.GetMouseButtonDown(0)){
+            player.animator.SetBool("isCasting", false);
             player.stateMachine.ChangeState(player.idleState);
             return;
         }
@@ -39,7 +40,6 @@ public class FishCastState : IState
 
     public void Exit()
     {
-        Debug.Log("Exiting fish cast State");
-        player.animator.SetBool("isFishing", false);
+        Debug.Log("Exiting fish cast State"); 
     }
 }
