@@ -24,8 +24,8 @@ private MMF_ChromaticAberration_URP chromabb;
         //Debug.Log("Entering slice");
         player.animator.SetBool("isSlicing", true);
         player.cutPlane.gameObject.SetActive(true);
-        player.zoomedCam.Priority = 10;    
-        player.normalCam.Priority = 0;
+        player.zoomedCam.enabled = true;    
+        player.normalCam.enabled = false;
         if(slowTimeCoroutine != null) player.StopCoroutine(slowTimeCoroutine);
         slowTimeCoroutine = player.StartCoroutine(SlowTime(0.1f));
         slashCount = 0;
@@ -42,6 +42,7 @@ private MMF_ChromaticAberration_URP chromabb;
         Cursor.visible = false;
 
         //disable freelook camera movement 
+        player.inputAxisController.enabled = false;
     }
 
     public void Update()
@@ -79,8 +80,8 @@ private MMF_ChromaticAberration_URP chromabb;
         //Debug.Log("Exiting slice State");
         player.animator.SetBool("isSlicing", false);
         player.StartCoroutine(DisableCutPlane());
-        player.zoomedCam.Priority = 0;
-        player.normalCam.Priority = 10;
+        player.zoomedCam.enabled = false;
+        player.normalCam.enabled = true;
 
         if(slowTimeCoroutine != null) player.StopCoroutine(slowTimeCoroutine);
         slowTimeCoroutine = player.StartCoroutine(SlowTime(1f));
@@ -95,6 +96,9 @@ private MMF_ChromaticAberration_URP chromabb;
         //unlock cursor
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        //enable freelook camera movement
+        player.inputAxisController.enabled = true;
     }
 
 
