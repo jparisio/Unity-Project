@@ -21,6 +21,9 @@ public class FishCastState : IState
         AnimationClip castClip = player.animator.GetCurrentAnimatorClipInfo(0)[0].clip;
         animationDuration = castClip.length;
         elapsedTime = 0f;
+
+        //instantiate a ball thats an rb and add a force to it (impulse) player local forward
+        //player.fishBall = GameObject.Instantiate(player.fishBallPrefab, player.fishCastPoint.position, player.fishCastPoint.rotation);    
     }
     public void Update()
     {

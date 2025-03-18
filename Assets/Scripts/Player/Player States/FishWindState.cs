@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FishWindState : IState
 {
@@ -6,6 +7,7 @@ public class FishWindState : IState
     private float charge;
     private readonly float maxCharge = 5.0f;   // Maximum charge value (e.g., 5 seconds)
     private readonly float chargeRate = 1.0f;    // Charge per second
+    private Image windMeter;
 
     public FishWindState(PlayerController player)
     {
@@ -19,6 +21,7 @@ public class FishWindState : IState
         charge = 0f;
         // Optionally, start the wind-up animation.
         player.animator.SetBool("isWinding", true);
+        windMeter = player.fishMeter.GetComponentInChildren<Image>();
 
         // Optionally, update UI to show the wind-up meter starting at 0%.
         // player.ui.UpdateWindMeter(0f);
@@ -32,6 +35,7 @@ public class FishWindState : IState
             charge += chargeRate * Time.deltaTime;
             // Clamp the charge so it never exceeds the maximum
             charge = Mathf.Clamp(charge, 0f, maxCharge);
+            windMeter.fillAmount = charge / maxCharge * 3f;
 
             // Optionally, update your wind-up meter UI (value between 0 and 1)
             // float chargePercent = charge / maxCharge;
@@ -54,6 +58,8 @@ public class FishWindState : IState
         Debug.Log("Exiting fish wind State");
         // Reset the animator flag if needed
         player.animator.SetBool("isWinding", false);
+
+        windMeter.fillAmount = 0f;
 
         // Optionally, reset the wind-up meter UI
         // player.ui.UpdateWindMeter(0f);

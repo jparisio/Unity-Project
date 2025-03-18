@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public MMF_Player feedbacks;
     public MMFeedbacks slashFeedbacks;
     public CinemachineInputAxisController inputAxisController;
+    public Canvas fishMeter;
 
     [Header("Movement")]
     [SerializeField] public float moveSpeed = 5f;
