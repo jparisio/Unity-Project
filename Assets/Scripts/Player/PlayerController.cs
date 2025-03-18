@@ -29,6 +29,10 @@ public class PlayerController : MonoBehaviour
     [Header("States")]
     public LocomotionState locomotionState;
     public FishCastState fishCastState;
+    public FishWindState fishWindState;
+
+    public FishWaitState fishWaitState;
+    public FishReelState fishReelState;
     public IdleState idleState;
     public SliceState sliceState;
 
@@ -49,6 +53,9 @@ public class PlayerController : MonoBehaviour
         idleState = new IdleState(this);
         locomotionState = new LocomotionState(this);
         fishCastState = new FishCastState(this);
+        fishWindState = new FishWindState(this);
+        fishWaitState = new FishWaitState(this);
+        fishReelState = new FishReelState(this);
         sliceState = new SliceState(this);
 
         stateMachine.Initialize(idleState);
@@ -56,7 +63,6 @@ public class PlayerController : MonoBehaviour
 
     public void HandleMovement()
     {
-
         Vector3 movementInput = GetInputVector();
 
         if (movementInput.magnitude > 0.1f)
@@ -67,8 +73,7 @@ public class PlayerController : MonoBehaviour
 
             characterController.Move((moveDirection * moveSpeed + gravity) * Time.deltaTime);
             RotatePlayer(moveDirection);
-            previousMoveDirection = moveDirection;
-            
+            previousMoveDirection = moveDirection; 
         }
 
         //add gravity 
@@ -109,6 +114,4 @@ public class PlayerController : MonoBehaviour
 
             return new Vector3(horizontal, 0, vertical);
         }
-
-
 }

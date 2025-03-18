@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 7c48bdc9fed28c14b8ad0748673b1369
+timeCreated: 1518248472
+licenseType: Store
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 220201
+  packageName: PicoChan Animation Pack
+  packageVersion: 1.0.0
+  assetPath: Assets/Picola/Toon/Shader/Tess/ToonColor_ShadingGradeMap_AngelRing_Tess_StencilOut.shader
+  uploadId: 498274

@@ -7,7 +7,6 @@ private PlayerController player;
 
     public IdleState(PlayerController player){
         this.player = player;
-        
     }
 
     public void Enter()
@@ -25,6 +24,10 @@ private PlayerController player;
 
         if(Input.GetKey("f")){
             player.stateMachine.ChangeState(player.sliceState);
+        }
+
+        if (Input.GetMouseButtonDown(0)){
+            player.stateMachine.ChangeState(player.fishWindState);
         }
     }
 
