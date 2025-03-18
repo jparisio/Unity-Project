@@ -7,6 +7,7 @@ private PlayerController player;
 
     public LocomotionState(PlayerController player){
         this.player = player;
+        
     }
 
     public void Enter()
@@ -17,6 +18,7 @@ private PlayerController player;
 
     public void Update()
     {
+
         player.HandleMovement();
         
         //handle anim blending for the running state
@@ -25,10 +27,6 @@ private PlayerController player;
         // Transition to Idle State when no input and no speed
         if(player.GetInputVector() == Vector3.zero){
             player.stateMachine.ChangeState(player.idleState);
-        }
-
-        if (Input.GetMouseButtonDown(0)){
-            player.stateMachine.ChangeState(player.fishCastState);
         }
     }
 
