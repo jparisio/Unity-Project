@@ -24,8 +24,8 @@ private MMF_ChromaticAberration_URP chromabb;
         //Debug.Log("Entering slice");
         player.animator.SetBool("isSlicing", true);
         player.cutPlane.gameObject.SetActive(true);
-        player.zoomedCam.Priority = 10;    
-        player.normalCam.Priority = 0;
+        player.zoomedCam.enabled = true;    
+        player.normalCam.enabled = false;
         if(slowTimeCoroutine != null) player.StopCoroutine(slowTimeCoroutine);
         slowTimeCoroutine = player.StartCoroutine(SlowTime(0.1f));
         slashCount = 0;
@@ -62,9 +62,9 @@ private MMF_ChromaticAberration_URP chromabb;
         }
 
         // Get the UP direction of the plane
-        Vector3 forward = player.cutPlane.localRotation * Vector3.up;
+        Vector3 cutPlaneRot = player.cutPlane.localRotation * Vector3.up;
 
-        Vector2 blendInput = new Vector2(forward.x, forward.y);
+        Vector2 blendInput = new Vector2(cutPlaneRot.x, cutPlaneRot.y);
 
         // Normalize to keep values between -1 and 1
         blendInput.Normalize();
@@ -82,8 +82,8 @@ private MMF_ChromaticAberration_URP chromabb;
         //Debug.Log("Exiting slice State");
         player.animator.SetBool("isSlicing", false);
         player.StartCoroutine(DisableCutPlane());
-        player.zoomedCam.Priority = 0;
-        player.normalCam.Priority = 10;
+        player.zoomedCam.enabled = false;
+        player.normalCam.enabled = true;
 
         if(slowTimeCoroutine != null) player.StopCoroutine(slowTimeCoroutine);
         slowTimeCoroutine = player.StartCoroutine(SlowTime(1f));
