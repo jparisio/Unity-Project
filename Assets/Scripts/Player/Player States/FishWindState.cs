@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,8 @@ public class FishWindState : IState
     private readonly float maxCharge = 5.0f;   // Maximum charge value (e.g., 5 seconds)
     private readonly float chargeRate = 1.0f;    // Charge per second
     private Image windMeter;
+    private MMFeedbacks windFeedback;
+    private bool jiggle;
 
     public FishWindState(PlayerController player)
     {
@@ -22,6 +25,8 @@ public class FishWindState : IState
         // Optionally, start the wind-up animation.
         player.animator.SetBool("isWinding", true);
         windMeter = player.fishMeter.GetComponentInChildren<Image>();
+        windFeedback = player.fishMeter.GetComponentInChildren<MMFeedbacks>();
+        jiggle = false;
 
         // Optionally, update UI to show the wind-up meter starting at 0%.
         // player.ui.UpdateWindMeter(0f);
@@ -36,6 +41,14 @@ public class FishWindState : IState
             // Clamp the charge so it never exceeds the maximum
             charge = Mathf.Clamp(charge, 0f, maxCharge);
             windMeter.fillAmount = charge / maxCharge * 3f;
+
+            if(windMeter.fillAmount >= 1 && !jiggle)
+            {
+                windFeedback.PlayFeedbacks();
+                jiggle = true;
+            } else if(windMeter.fillAmount < 1) {
+                jiggle = false;
+            }
 
             // Optionally, update your wind-up meter UI (value between 0 and 1)
             // float chargePercent = charge / maxCharge;
