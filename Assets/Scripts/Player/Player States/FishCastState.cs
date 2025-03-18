@@ -24,12 +24,6 @@ public class FishCastState : IState
     }
     public void Update()
     {
-        if (Input.GetMouseButtonDown(0)){
-            player.animator.SetBool("isCasting", false);
-            player.stateMachine.ChangeState(player.idleState);
-            return;
-        }
-
         elapsedTime += Time.deltaTime;
         if (elapsedTime >= animationDuration)
         {

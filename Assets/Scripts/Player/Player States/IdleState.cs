@@ -27,7 +27,7 @@ private PlayerController player;
         }
 
         if (Input.GetMouseButtonDown(0)){
-            player.stateMachine.ChangeState(player.fishCastState);
+            player.stateMachine.ChangeState(player.fishWindState);
         }
     }
 

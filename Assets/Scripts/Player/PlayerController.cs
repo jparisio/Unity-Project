@@ -28,7 +28,10 @@ public class PlayerController : MonoBehaviour
     [Header("States")]
     public LocomotionState locomotionState;
     public FishCastState fishCastState;
+    public FishWindState fishWindState;
+
     public FishWaitState fishWaitState;
+    public FishReelState fishReelState;
     public IdleState idleState;
     public SliceState sliceState;
 
@@ -49,7 +52,9 @@ public class PlayerController : MonoBehaviour
         idleState = new IdleState(this);
         locomotionState = new LocomotionState(this);
         fishCastState = new FishCastState(this);
+        fishWindState = new FishWindState(this);
         fishWaitState = new FishWaitState(this);
+        fishReelState = new FishReelState(this);
         sliceState = new SliceState(this);
 
         stateMachine.Initialize(idleState);
