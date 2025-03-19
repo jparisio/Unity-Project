@@ -51,13 +51,8 @@ public class FishCastState : IState
         player.fishBob = GameObject.Instantiate(player.fishBobPrefab, player.startLine.position, player.fishingRod.transform.rotation);
         fishBobRb = player.fishBob.GetComponent<Rigidbody>();
         fishBobRb.AddForce((player.transform.forward + player.transform.up) * player.charge, ForceMode.Impulse); 
-        player.StartCoroutine(createLine());
-    }
-
-    private IEnumerator createLine(){
-      yield return new WaitForSeconds(.07f);
-       Transform targetTransform = player.startLine;
-       if (targetTransform != null)
+        Transform targetTransform = player.startLine;
+        if (targetTransform != null)
         {
             rope = player.fishBob.GetComponent<Rope>();
             rope.SetEndPoint(targetTransform);
@@ -66,5 +61,7 @@ public class FishCastState : IState
         {
             Debug.Log("Empty object with the specified name not found in children.");
         }
+
     }
+
 }
