@@ -12,15 +12,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public Animator animator;
     [SerializeField] private Transform cam; 
     public Transform cutPlane;
-    public CinemachineCamera normalCam;
-    public CinemachineCamera zoomedCam;
-    public CinemachineInputAxisController inputAxisController;
-    public Material fishTexture;
+
+    [Header("Feedbacks/Effects")]
     public ParticleSystem slashParticles;
     public MMF_Player feedbacks;
     public MMFeedbacks slashFeedbacks;
-    public Canvas fishMeter;
+    
 
+    [Header("Cinemachine Cameras")]
+    public CinemachineCamera normalCam;
+    public CinemachineCamera zoomedCam;
+    public CinemachineInputAxisController inputAxisController;
 
     [Header("Movement")]
     [SerializeField] public float moveSpeed = 5f;
@@ -39,10 +41,12 @@ public class PlayerController : MonoBehaviour
 
     [Header("Fishing")]
     public float charge;
-    [SerializeField] public GameObject fishBobPrefab;
     [HideInInspector]public GameObject fishBob = null;
+    [SerializeField] public GameObject fishBobPrefab;
     [SerializeField] public GameObject fishingRod;
     [SerializeField] public Transform startLine;
+    public Material fishTexture;
+    public Canvas fishMeter;
 
     private void Awake()
     {

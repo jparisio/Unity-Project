@@ -20,14 +20,17 @@ private PlayerController player;
         
         if(player.GetInputVector() != Vector3.zero){
             player.stateMachine.ChangeState(player.locomotionState);
+            return;
         }
 
         if(Input.GetKey("f")){
             player.stateMachine.ChangeState(player.sliceState);
+            return;
         }
 
         if (Input.GetMouseButtonDown(0)){
             player.stateMachine.ChangeState(player.fishWindState);
+            return;
         }
     }
 

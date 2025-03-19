@@ -35,9 +35,9 @@ public class FishWaitState : IState
         {
             if (waitCoroutine != null)
             {
-                player.StopCoroutine(waitCoroutine); // Stop the waiting coroutine if it's still running
+                player.StopCoroutine(waitCoroutine); 
             }
-            player.stateMachine.ChangeState(player.idleState); // Transition to idle state
+            player.stateMachine.ChangeState(player.fishReelState); 
         }
     }
 

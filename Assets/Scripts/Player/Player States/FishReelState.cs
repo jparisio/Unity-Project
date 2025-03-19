@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class FishReelState : IState
 {
@@ -18,17 +19,13 @@ public class FishReelState : IState
         AnimationClip castClip = player.animator.GetCurrentAnimatorClipInfo(0)[0].clip;
         animationDuration = castClip.length;
         elapsedTime = 0f;
+        ReelLine();
     }
 
     public void Update()
     {
-        // Handle mouse input and transition to idle state immediately
-        if (Input.GetMouseButtonDown(0))
-        {
-            player.stateMachine.ChangeState(player.idleState);
-            return;
-        }
-
+        //Realsitically should loop this until the ball reaches the player and is destroyed
+        //can just check if fishBall = null then change state to idle
         // Count elapsed time for the reel animation
         elapsedTime += Time.deltaTime;
 
@@ -47,4 +44,33 @@ public class FishReelState : IState
         player.animator.SetBool("isCasting", false);
         player.animator.SetBool("isReeling", false);
     }
+
+    private void ReelLine()
+    {
+        if (player.fishBob == null) return;
+
+        Rigidbody rb = player.fishBob.GetComponent<Rigidbody>();
+        
+        if (rb != null)
+        {
+            player.StartCoroutine(MoveFishBobToPlayer(rb));
+        }
+    }
+
+    // Coroutine to move fishBob smoothly
+    private IEnumerator MoveFishBobToPlayer(Rigidbody fishBobRb)
+    {
+        yield return new WaitForSeconds(1f);
+        float speed = 20f; 
+        Vector3 targetPosition = player.startLine.position;
+
+        while (Vector3.Distance(fishBobRb.position, targetPosition) > 0.1f)
+        {
+            fishBobRb.position = Vector3.MoveTowards(fishBobRb.position, targetPosition, speed * Time.deltaTime);
+            yield return null;
+        }
+
+        GameObject.Destroy(fishBobRb.gameObject); 
+    }
+
 }
