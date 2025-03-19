@@ -24,13 +24,7 @@ public class FishReelState : IState
 
     public void Update()
     {
-        //Realsitically should loop this until the ball reaches the player and is destroyed
-        //can just check if fishBall = null then change state to idle
-        // Count elapsed time for the reel animation
-        elapsedTime += Time.deltaTime;
-
-        // When the animation is finished, transition to idle state
-        if (elapsedTime >= animationDuration)
+        if (player.fishBob == null)
         {
             player.stateMachine.ChangeState(player.idleState);
         }
