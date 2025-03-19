@@ -20,8 +20,7 @@ public class PlayerController : MonoBehaviour
     public MMF_Player feedbacks;
     public MMFeedbacks slashFeedbacks;
     public Canvas fishMeter;
-    [SerializeField] public GameObject fishBobPrefab;
-    public GameObject fishBob = null;
+
 
     [Header("Movement")]
     [SerializeField] public float moveSpeed = 5f;
@@ -40,6 +39,10 @@ public class PlayerController : MonoBehaviour
 
     [Header("Fishing")]
     public float charge;
+    [SerializeField] public GameObject fishBobPrefab;
+    [HideInInspector]public GameObject fishBob = null;
+    [SerializeField] public GameObject fishingRod;
+    [SerializeField] public Transform startLine;
 
     private void Awake()
     {

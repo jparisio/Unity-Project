@@ -9,6 +9,7 @@ public class FishCastState : IState
     private float animationDuration;
     private float elapsedTime;
     private Rigidbody fishBobRb;
+    private Rope rope;
 
 
     public FishCastState(PlayerController player){
@@ -25,11 +26,12 @@ public class FishCastState : IState
         animationDuration = castClip.length;
         elapsedTime = 0f;
 
-        // Instantiate a ball that's an rb and add a force to it (impulse) player local forward
         player.StartCoroutine(castBob());
     }
     public void Update()
     {
+
+
         elapsedTime += Time.deltaTime;
         if (elapsedTime >= animationDuration)
         {
@@ -46,17 +48,23 @@ public class FishCastState : IState
     private IEnumerator castBob()
     {
         yield return new WaitForSeconds(.3f);
-        player.fishBob = GameObject.Instantiate(player.fishBobPrefab, player.transform.position, player.transform.rotation);
+        player.fishBob = GameObject.Instantiate(player.fishBobPrefab, player.startLine.position, player.fishingRod.transform.rotation);
         fishBobRb = player.fishBob.GetComponent<Rigidbody>();
         fishBobRb.AddForce((player.transform.forward + player.transform.up) * player.charge, ForceMode.Impulse); 
-        Transform targetTransform = player.transform.Find("CamTarget");
-        if (targetTransform != null)
+        player.StartCoroutine(createLine());
+    }
+
+    private IEnumerator createLine(){
+      yield return new WaitForSeconds(.1f);
+       Transform targetTransform = player.startLine;
+       if (targetTransform != null)
         {
-            player.fishBob.GetComponent<Rope>().SetEndPoint(targetTransform);
+            rope = player.fishBob.GetComponent<Rope>();
+            rope.SetEndPoint(targetTransform);
         }
         else
         {
-            Debug.LogWarning("Empty object with the specified name not found in children.");
+            Debug.Log("Empty object with the specified name not found in children.");
         }
     }
 }
