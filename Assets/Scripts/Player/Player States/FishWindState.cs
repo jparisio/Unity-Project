@@ -9,12 +9,14 @@ public class FishWindState : IState
     private readonly float maxCharge = 5.0f;   // Maximum charge value (e.g., 5 seconds)
     private readonly float chargeRate = 1.0f;    // Charge per second
     private Image windMeter;
-    private MMFeedbacks windFeedback;
+    private MMF_Player windFeedback;
+    private MMF_SquashAndStretchSpring jiggleFeedback;
     private bool jiggle;
 
     public FishWindState(PlayerController player)
     {
         this.player = player;
+
     }
 
     public void Enter()
@@ -25,7 +27,8 @@ public class FishWindState : IState
         // Optionally, start the wind-up animation.
         player.animator.SetBool("isWinding", true);
         windMeter = player.fishMeter.GetComponentInChildren<Image>();
-        windFeedback = player.fishMeter.GetComponentInChildren<MMFeedbacks>();
+        windFeedback = player.fishMeter.GetComponentInChildren<MMF_Player>();
+        jiggleFeedback = windFeedback.GetFeedbackOfType<MMF_SquashAndStretchSpring>();
         jiggle = false;
 
         // Optionally, update UI to show the wind-up meter starting at 0%.
@@ -44,7 +47,7 @@ public class FishWindState : IState
 
             if(windMeter.fillAmount >= 1 && !jiggle)
             {
-                windFeedback.PlayFeedbacks();
+                jiggleFeedback.Play(Vector3.one);
                 jiggle = true;
             } else if(windMeter.fillAmount < 1) {
                 jiggle = false;
