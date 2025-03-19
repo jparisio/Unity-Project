@@ -26,13 +26,13 @@ public class FishWindState : IState
         charge = 0f;
         // Optionally, start the wind-up animation.
         player.animator.SetBool("isWinding", true);
+
+        //meter and feedbacks
         windMeter = player.fishMeter.GetComponentInChildren<Image>();
         windFeedback = player.fishMeter.GetComponentInChildren<MMF_Player>();
         jiggleFeedback = windFeedback.GetFeedbackOfType<MMF_SquashAndStretchSpring>();
         jiggle = false;
-
-        // Optionally, update UI to show the wind-up meter starting at 0%.
-        // player.ui.UpdateWindMeter(0f);
+        jiggleFeedback.Play(Vector3.one);
     }
 
     public void Update()
@@ -43,19 +43,8 @@ public class FishWindState : IState
             charge += chargeRate * Time.deltaTime;
             // Clamp the charge so it never exceeds the maximum
             charge = Mathf.Clamp(charge, 0f, maxCharge);
-            windMeter.fillAmount = charge / maxCharge * 3f;
 
-            if(windMeter.fillAmount >= 1 && !jiggle)
-            {
-                jiggleFeedback.Play(Vector3.one);
-                jiggle = true;
-            } else if(windMeter.fillAmount < 1) {
-                jiggle = false;
-            }
-
-            // Optionally, update your wind-up meter UI (value between 0 and 1)
-            // float chargePercent = charge / maxCharge;
-            // player.ui.UpdateWindMeter(chargePercent);
+            HandleWindMeter();
         }
         
         // When the mouse button is released, transition to the next state
@@ -65,6 +54,7 @@ public class FishWindState : IState
             // player.charge = charge; // This could affect cast power later
             
             // Transition to the fish cast state (or whatever the next state is)
+            player.charge = Mathf.Clamp(charge * 10f, 8f, 20f);
             player.stateMachine.ChangeState(player.fishCastState);
         }
     }
@@ -79,5 +69,19 @@ public class FishWindState : IState
 
         // Optionally, reset the wind-up meter UI
         // player.ui.UpdateWindMeter(0f);
+    }
+
+    private void HandleWindMeter(){
+
+            windMeter.fillAmount = charge / maxCharge * 3f;
+
+            if(windMeter.fillAmount >= 1 && !jiggle)
+            {
+                jiggleFeedback.Play(Vector3.one);
+                jiggle = true;
+            } else if(windMeter.fillAmount < 1) {
+                jiggle = false;
+            }
+
     }
 }

@@ -14,12 +14,14 @@ public class PlayerController : MonoBehaviour
     public Transform cutPlane;
     public CinemachineCamera normalCam;
     public CinemachineCamera zoomedCam;
+    public CinemachineInputAxisController inputAxisController;
     public Material fishTexture;
     public ParticleSystem slashParticles;
     public MMF_Player feedbacks;
     public MMFeedbacks slashFeedbacks;
-    public CinemachineInputAxisController inputAxisController;
     public Canvas fishMeter;
+    [SerializeField] public GameObject fishBobPrefab;
+    public GameObject fishBob = null;
 
     [Header("Movement")]
     [SerializeField] public float moveSpeed = 5f;
@@ -31,11 +33,13 @@ public class PlayerController : MonoBehaviour
     public LocomotionState locomotionState;
     public FishCastState fishCastState;
     public FishWindState fishWindState;
-
     public FishWaitState fishWaitState;
     public FishReelState fishReelState;
     public IdleState idleState;
     public SliceState sliceState;
+
+    [Header("Fishing")]
+    public float charge;
 
     private void Awake()
     {

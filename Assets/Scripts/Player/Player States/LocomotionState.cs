@@ -22,14 +22,15 @@ private PlayerController player;
         //handle anim blending for the running state
         HandleAnims();
 
-        // Transition to Idle State when no input and no speed
+        // Transition to Idle State when no input 
         if(player.GetInputVector() == Vector3.zero){
             player.stateMachine.ChangeState(player.idleState);
         }
 
-        if (Input.GetMouseButtonDown(0)){
-            player.stateMachine.ChangeState(player.fishCastState);
-        }
+        //we have no anim transitions to this rn
+        // if (Input.GetMouseButtonDown(0)){
+        //     player.stateMachine.ChangeState(player.fishCastState);
+        // }
     }
 
 

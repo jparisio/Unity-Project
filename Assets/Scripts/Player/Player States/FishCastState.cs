@@ -1,3 +1,5 @@
+using System.Collections;
+using GogoGaga.OptimizedRopesAndCables;
 using UnityEngine;
 
 public class FishCastState : IState
@@ -6,6 +8,7 @@ public class FishCastState : IState
     private PlayerController player;
     private float animationDuration;
     private float elapsedTime;
+    private Rigidbody fishBobRb;
 
 
     public FishCastState(PlayerController player){
@@ -22,8 +25,8 @@ public class FishCastState : IState
         animationDuration = castClip.length;
         elapsedTime = 0f;
 
-        //instantiate a ball thats an rb and add a force to it (impulse) player local forward
-        //player.fishBall = GameObject.Instantiate(player.fishBallPrefab, player.fishCastPoint.position, player.fishCastPoint.rotation);    
+        // Instantiate a ball that's an rb and add a force to it (impulse) player local forward
+        player.StartCoroutine(castBob());
     }
     public void Update()
     {
@@ -38,5 +41,22 @@ public class FishCastState : IState
     public void Exit()
     {
         Debug.Log("Exiting fish cast State"); 
+    }
+
+    private IEnumerator castBob()
+    {
+        yield return new WaitForSeconds(.3f);
+        player.fishBob = GameObject.Instantiate(player.fishBobPrefab, player.transform.position, player.transform.rotation);
+        fishBobRb = player.fishBob.GetComponent<Rigidbody>();
+        fishBobRb.AddForce((player.transform.forward + player.transform.up) * player.charge, ForceMode.Impulse); 
+        Transform targetTransform = player.transform.Find("CamTarget");
+        if (targetTransform != null)
+        {
+            player.fishBob.GetComponent<Rope>().SetEndPoint(targetTransform);
+        }
+        else
+        {
+            Debug.LogWarning("Empty object with the specified name not found in children.");
+        }
     }
 }
