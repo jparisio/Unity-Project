@@ -47,7 +47,7 @@ public class FishCastState : IState
 
     private IEnumerator castBob()
     {
-        yield return new WaitForSeconds(.3f);
+        yield return new WaitForSeconds(.6f);
         player.fishBob = GameObject.Instantiate(player.fishBobPrefab, player.startLine.position, player.fishingRod.transform.rotation);
         fishBobRb = player.fishBob.GetComponent<Rigidbody>();
         fishBobRb.AddForce((player.transform.forward + player.transform.up) * player.charge, ForceMode.Impulse); 
@@ -55,7 +55,7 @@ public class FishCastState : IState
     }
 
     private IEnumerator createLine(){
-      yield return new WaitForSeconds(.1f);
+      yield return new WaitForSeconds(.07f);
        Transform targetTransform = player.startLine;
        if (targetTransform != null)
         {

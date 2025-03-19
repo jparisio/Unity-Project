@@ -22,7 +22,7 @@ public class FishLineController : MonoBehaviour
         if (rope != null)
         {
             float distance = Vector3.Distance(player.startLine.position, player.fishBob.transform.position); 
-            rope.ropeLength = Mathf.Max(3, Mathf.RoundToInt(distance / 2)); 
+            rope.ropeLength = Mathf.Max(1, Mathf.RoundToInt(distance / 2)); 
             // Debug.Log("Distance: " + distance);
             
         }
