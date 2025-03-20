@@ -7,14 +7,22 @@ public class FishReelState : IState
     private float animationDuration;
     private float elapsedTime;
 
+    private const float reelDuration = 10f;
+
+    private FishingReelMinigameUI reelMinigame;
+
     public FishReelState(PlayerController player){
         this.player = player;
+
+        reelMinigame = player.reelMinigameUI.GetComponent<FishingReelMinigameUI>();
     }
 
     public void Enter()
     {
         Debug.Log("Entering reel state");
         player.animator.SetBool("isReeling", true);
+
+        player.reelMinigameUI.SetActive(true);
 
         AnimationClip castClip = player.animator.GetCurrentAnimatorClipInfo(0)[0].clip;
         animationDuration = castClip.length;
@@ -37,6 +45,8 @@ public class FishReelState : IState
         player.animator.SetBool("isFishing", false);
         player.animator.SetBool("isCasting", false);
         player.animator.SetBool("isReeling", false);
+
+        player.reelMinigameUI.SetActive(false);
     }
 
     private void ReelLine()
@@ -55,7 +65,7 @@ public class FishReelState : IState
     private IEnumerator MoveFishBobToPlayer(Rigidbody fishBobRb)
     {
         yield return new WaitForSeconds(1f);
-        float speed = 20f; 
+        float speed = 5f; 
         Vector3 targetPosition = player.startLine.position;
 
         while (Vector3.Distance(fishBobRb.position, targetPosition) > 0.1f)

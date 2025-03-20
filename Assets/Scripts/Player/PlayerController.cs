@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     public StateMachine<PlayerController> stateMachine;
 
+    public GameObject reelMinigameUI; 
+
     [Header("References")]
     [SerializeField] public CharacterController characterController;
     [SerializeField] public Animator animator;
