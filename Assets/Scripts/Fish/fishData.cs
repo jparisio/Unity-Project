@@ -3,10 +3,10 @@ using UnityEngine;
 [System.Serializable]
 public class FishData
 {
-    public string fishName;          // Name of the fish
-    public FishRarity rarity;        // Rarity type (Common, Rare, Legendary)
-    public int difficulty;           // How hard it is to catch (e.g., 1-10)
-    public int value;                // The selling price of the fish
+    public string fishName;          // Name
+    public FishRarity rarity;        // Rarity (Common, Rare, Legendary)
+    public int difficulty;           // Difficulty (1-10)
+    public int value;                // Value
     public GameObject fishPrefab;    // Model reference (prefab)
 
     public FishData(string name, FishRarity rarity, int difficulty, int value, GameObject fishPrefab)
@@ -19,7 +19,7 @@ public class FishData
     }
 }
 
-// Enum for Rarity Levels
+// Enum for Rarity
 public enum FishRarity
 {
     Common,
