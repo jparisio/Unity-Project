@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using GogoGaga.OptimizedRopesAndCables;
 
 public class FishReelState : IState
 {
     private PlayerController player;
     private FishingReelMinigameUI reelMinigame;
+    private GameObject fishInstance;
 
     public FishReelState(PlayerController player)
     {
@@ -26,7 +28,7 @@ public class FishReelState : IState
         if (player.fishBob != null)
         {
             // Instantiate without parenting first to get original scale
-            GameObject fishInstance = Object.Instantiate(
+            fishInstance = Object.Instantiate(
                 randomFish.fishPrefab,
                 player.fishBob.transform.position,
                 Quaternion.identity
@@ -48,6 +50,7 @@ public class FishReelState : IState
             );
 
             fishInstance.transform.rotation = Quaternion.identity;
+            fishInstance.SetActive(false);
 
             Vector3 directionToPlayer = player.transform.position - fishInstance.transform.position;
             directionToPlayer.y = 0;  // keep the rotation only on the y-axis
@@ -66,7 +69,7 @@ public class FishReelState : IState
     {
         if (player.fishBob == null)
         {
-            player.stateMachine.ChangeState(player.idleState);
+            player.stateMachine.ChangeState(player.sliceState);
         }
     }
 
@@ -99,15 +102,42 @@ public class FishReelState : IState
     {
         yield return new WaitForSeconds(1f);
         float speed = 7f;
-        Vector3 targetPosition = player.startLine.position;
+        Vector3 playerBottom = player.transform.position - new Vector3(0, player.characterController.height / 2f, 0);
+        Vector3 targetPosition = playerBottom + player.transform.forward * 3f;
+        player.fishBob.GetComponent<RopeWindEffect>().windForce = 0f;
 
         while (Vector3.Distance(fishBobRb.position, targetPosition) > 0.1f)
         {
             fishBobRb.position = Vector3.MoveTowards(fishBobRb.position, targetPosition, speed * Time.deltaTime);
             yield return null;
-        }
+        }   
 
-        GameObject.Destroy(fishBobRb.gameObject);
+        PopFishUp();
+    }
+
+    private void PopFishUp(){
+        fishInstance.SetActive(true);
+        fishInstance.transform.SetParent(null);
+        // foreach (Collider col in fishInstance.GetComponentsInChildren<Collider>())
+        // {
+        //     col.enabled = false;
+        // }
+
+        //add a collider to the fish 
+        fishInstance.layer = 9;
+        AddFishCollider();
+        
+        Rigidbody rb = fishInstance.AddComponent<Rigidbody>();
+
+        // make sure it doesn't collide even if a collider slipped through
+        rb.detectCollisions = false;
+
+        // Pop it into the air
+        rb.AddForce(Vector3.up * 8f, ForceMode.Impulse);
+        rb.AddTorque(Vector3.up * 6f, ForceMode.Impulse);
+
+
+        GameObject.Destroy(player.fishBob.gameObject);
     }
 
     private void SpawnFish()
@@ -125,5 +155,13 @@ public class FishReelState : IState
 
         // Debug log to show which fish was spawned
         Debug.Log($"Spawned: {randomFish.fishName} (Rarity: {randomFish.rarity}, Value: {randomFish.value})");
+    }
+
+    private void AddFishCollider()
+    {
+        fishInstance.AddComponent<BoxCollider>();
+        //size it to the fishes scale
+        fishInstance.GetComponent<BoxCollider>().size = fishInstance.transform.localScale;
+        fishInstance.GetComponent<BoxCollider>().isTrigger = true;
     }
 }
