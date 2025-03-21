@@ -22,7 +22,7 @@ public class MeatInteractable : MonoBehaviour, IInteractable
     void Update()
     {
         float volume = GetBoundingBoxVolume(gameObject);
-        if (volume < minSize * 5)
+        if (volume < minSize)
         {
             Destroy(gameObject);
         }
@@ -46,7 +46,7 @@ public class MeatInteractable : MonoBehaviour, IInteractable
         float volume = bounds.size.x * bounds.size.y * bounds.size.z;
 
         //this is like if its a stupid skinny peiece just delete it
-        if(bounds.size.x < minSize || bounds.size.y < minSize || bounds.size.z < minSize)
+        if(bounds.size.x < minSize/5 || bounds.size.y < minSize/5 || bounds.size.z < minSize/5)
         {
             return 0;
         }
