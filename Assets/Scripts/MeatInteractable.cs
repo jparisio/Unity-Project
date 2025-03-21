@@ -5,6 +5,8 @@ using UnityEngine;
 public class MeatInteractable : MonoBehaviour, IInteractable
 {
 
+    private float minSize = 0.01f;
+
     public void Interact()
     {
         Debug.Log("Meat Interacted");
@@ -20,7 +22,7 @@ public class MeatInteractable : MonoBehaviour, IInteractable
     void Update()
     {
         float volume = GetBoundingBoxVolume(gameObject);
-        if (volume < 0.03f)
+        if (volume < minSize * 5)
         {
             Destroy(gameObject);
         }
@@ -42,6 +44,12 @@ public class MeatInteractable : MonoBehaviour, IInteractable
 
         // Calculate the volume of the bounding box
         float volume = bounds.size.x * bounds.size.y * bounds.size.z;
+
+        //this is like if its a stupid skinny peiece just delete it
+        if(bounds.size.x < minSize || bounds.size.y < minSize || bounds.size.z < minSize)
+        {
+            return 0;
+        }
 
         return volume;
     }

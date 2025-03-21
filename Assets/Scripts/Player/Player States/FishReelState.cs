@@ -20,10 +20,13 @@ public class FishReelState : IState
 
         player.animator.SetBool("isReeling", true);
 
-        player.reelMinigameUI.SetActive(true);
+        reelMinigame.gameObject.SetActive(true);
+      
 
         // Pull a random fish from the fish database
         FishData randomFish = player.fishDatabase.GetRandomFish();
+        Debug.Log($"Caught {randomFish.fishName} (Rarity: {randomFish.rarity}, Value: {randomFish.value})");
+        reelMinigame.setMoveSpeed(randomFish.value);
 
         if (player.fishBob != null)
         {
@@ -69,7 +72,15 @@ public class FishReelState : IState
     {
         if (player.fishBob == null)
         {
-            player.stateMachine.ChangeState(player.sliceState);
+            if(reelMinigame.minigameFailed)
+            {
+                player.stateMachine.ChangeState(player.idleState);
+                GameObject.Destroy(fishInstance);
+                return;
+            } else {
+                player.stateMachine.ChangeState(player.sliceState);
+                return;
+            }
         }
     }
 
@@ -82,7 +93,7 @@ public class FishReelState : IState
         player.animator.SetBool("isCasting", false);
         player.animator.SetBool("isReeling", false);
 
-        player.reelMinigameUI.SetActive(false);
+        reelMinigame.gameObject.SetActive(false);
     }
 
     private void ReelLine()

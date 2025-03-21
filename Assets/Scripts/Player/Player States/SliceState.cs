@@ -13,6 +13,7 @@ private Coroutine slowTimeCoroutine;
 private int slashCount = 0;
 private int slashCountMax = 5;
 private MMF_ChromaticAberration_URP chromabb;
+private float buffer = 0;
 
     public SliceState(PlayerController player){
         this.player = player;
@@ -43,13 +44,16 @@ private MMF_ChromaticAberration_URP chromabb;
 
         //disable freelook camera movement 
         player.inputAxisController.enabled = false;
+
+        buffer = .3f;
+        player.StartCoroutine(WaitBuffer());
     }
 
     public void Update()
     {
 
 
-        if (Input.GetMouseButtonDown(0)) 
+        if (Input.GetMouseButtonDown(0) && buffer <= 0) 
         {
             // Rotate cut plane 180 degrees
             player.cutPlane.rotation *= Quaternion.Euler(0, 0, 180);
@@ -132,6 +136,7 @@ private MMF_ChromaticAberration_URP chromabb;
         obj.layer = LayerMask.NameToLayer("Sliceable");
         Rigidbody rb = obj.AddComponent<Rigidbody>();
         rb.interpolation = RigidbodyInterpolation.Interpolate;
+        rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         MeshCollider collider = obj.AddComponent<MeshCollider>();
         collider.convex = true;
         //script to interact
@@ -170,6 +175,12 @@ private MMF_ChromaticAberration_URP chromabb;
         //we need this buffer so the slash particles can play
         yield return new WaitForSeconds(0.1f);
         player.cutPlane.gameObject.SetActive(false);
+    }
+
+    private IEnumerator WaitBuffer()
+    {
+        yield return new WaitForSeconds(buffer);
+        buffer = 0;
     }
 }
 
