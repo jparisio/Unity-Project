@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 public class IdleState : IState
 {
 
 private PlayerController player;
+private float buffer = 0f;
 
     public IdleState(PlayerController player){
         this.player = player;
@@ -12,6 +14,11 @@ private PlayerController player;
     public void Enter()
     {
         Debug.Log("Entering Idle");
+        if(player.stateMachine.PreviousState == player.sliceState){
+            buffer = 1f;
+        } else {
+            buffer = 0f;
+        }
     }
 
     public void Update()
@@ -23,14 +30,18 @@ private PlayerController player;
             return;
         }
 
-        if(Input.GetKey("f")){
-            player.stateMachine.ChangeState(player.sliceState);
+        // if(Input.GetKey("f")){
+        //     player.stateMachine.ChangeState(player.sliceState);
+        //     return;
+        // }
+
+        if (Input.GetMouseButtonDown(0) && buffer <= 0f){
+            player.stateMachine.ChangeState(player.fishWindState);
             return;
         }
 
-        if (Input.GetMouseButtonDown(0)){
-            player.stateMachine.ChangeState(player.fishWindState);
-            return;
+        if(buffer > 0f){
+            buffer -= Time.deltaTime;
         }
     }
 

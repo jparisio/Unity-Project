@@ -134,7 +134,7 @@ private MMF_ChromaticAberration_URP chromabb;
         rb.interpolation = RigidbodyInterpolation.Interpolate;
         MeshCollider collider = obj.AddComponent<MeshCollider>();
         collider.convex = true;
-        //script to fade away
+        //script to interact
         obj.AddComponent<MeatInteractable>();
 
         rb.AddExplosionForce(200, obj.transform.position, 20);

@@ -115,46 +115,58 @@ public class FishReelState : IState
         PopFishUp();
     }
 
-    private void PopFishUp(){
+    private void PopFishUp()
+    {
         fishInstance.SetActive(true);
         fishInstance.transform.SetParent(null);
-        // foreach (Collider col in fishInstance.GetComponentsInChildren<Collider>())
-        // {
-        //     col.enabled = false;
-        // }
 
-        //add a collider to the fish 
-        fishInstance.layer = 9;
+        // Convert SkinnedMeshRenderer to a static mesh
+        SkinnedMeshRenderer skinnedRenderer = fishInstance.GetComponentInChildren<SkinnedMeshRenderer>();
+        if (skinnedRenderer != null)
+        {
+            Debug.Log("Baking Skinned Mesh before applying physics");
+
+            Mesh bakedMesh = new Mesh();
+            skinnedRenderer.BakeMesh(bakedMesh); // Bake the mesh
+
+            // Create a new GameObject for the baked fish
+            GameObject bakedFish = new GameObject("BakedFish");
+            bakedFish.transform.position = fishInstance.transform.position;
+            bakedFish.transform.rotation = fishInstance.transform.rotation;
+            bakedFish.transform.localScale = fishInstance.transform.lossyScale;
+
+            // Add MeshFilter & MeshRenderer
+            MeshFilter mf = bakedFish.AddComponent<MeshFilter>();
+            mf.mesh = bakedMesh;
+
+            MeshRenderer mr = bakedFish.AddComponent<MeshRenderer>();
+            mr.materials = skinnedRenderer.sharedMaterials;
+
+            // Set correct layer for slicing
+            bakedFish.layer = LayerMask.NameToLayer("Sliceable");
+
+            // Destroy the skinned mesh object
+            GameObject.Destroy(fishInstance);
+            fishInstance = bakedFish; // Replace reference with baked fish
+            Debug.Log($"Fish Layer: {LayerMask.LayerToName(fishInstance.layer)}");
+
+        }
+
+        // Add Collider
         AddFishCollider();
-        
+
+        // Add Rigidbody
         Rigidbody rb = fishInstance.AddComponent<Rigidbody>();
+        rb.excludeLayers = LayerMask.GetMask("Water");
 
-        // make sure it doesn't collide even if a collider slipped through
-        rb.detectCollisions = false;
-
-        // Pop it into the air
-        rb.AddForce(Vector3.up * 8f, ForceMode.Impulse);
+        // Apply physics
+        rb.AddForce(Vector3.up * 7f, ForceMode.Impulse);
         rb.AddTorque(Vector3.up * 6f, ForceMode.Impulse);
 
-
+        // Destroy the bobber
         GameObject.Destroy(player.fishBob.gameObject);
-    }
 
-    private void SpawnFish()
-    {
-        Debug.Log("Fish successfully caught!");
-
-        // Get a random fish from the database
-        FishData randomFish = player.fishDatabase.GetRandomFish();
-
-        // Set the spawn position (near the player)
-        Vector3 spawnPosition = player.transform.position + new Vector3(2f, 0f, 2f);  // Spawn 2 units offset from the player
-
-        // Instantiate the fish prefab near the player using UnityEngine.Object.Instantiate
-        UnityEngine.Object.Instantiate(randomFish.fishPrefab, spawnPosition, Quaternion.identity);
-
-        // Debug log to show which fish was spawned
-        Debug.Log($"Spawned: {randomFish.fishName} (Rarity: {randomFish.rarity}, Value: {randomFish.value})");
+        Debug.Log(fishInstance.GetComponent<MeshFilter>()?.mesh);
     }
 
     private void AddFishCollider()
@@ -164,4 +176,23 @@ public class FishReelState : IState
         fishInstance.GetComponent<BoxCollider>().size = fishInstance.transform.localScale;
         fishInstance.GetComponent<BoxCollider>().isTrigger = true;
     }
+
+    // private void SpawnFish()
+    // {
+    //     Debug.Log("Fish successfully caught!");
+
+    //     // Get a random fish from the database
+    //     FishData randomFish = player.fishDatabase.GetRandomFish();
+
+    //     // Set the spawn position (near the player)
+    //     Vector3 spawnPosition = player.transform.position + new Vector3(2f, 0f, 2f);  // Spawn 2 units offset from the player
+
+    //     // Instantiate the fish prefab near the player using UnityEngine.Object.Instantiate
+    //     UnityEngine.Object.Instantiate(randomFish.fishPrefab, spawnPosition, Quaternion.identity);
+
+    //     // Debug log to show which fish was spawned
+    //     Debug.Log($"Spawned: {randomFish.fishName} (Rarity: {randomFish.rarity}, Value: {randomFish.value})");
+    // }
+
+
 }
