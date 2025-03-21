@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ee648ec3d411d3b4e9b585b5a9a361d0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300698
+  packageName: Japanese Sea Fish Pack
+  packageVersion: 1.0
+  assetPath: Assets/JapaneseSeaFishPack/RenderPipeline/URP/Material/Kasago_URP.mat
+  uploadId: 726713

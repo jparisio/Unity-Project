@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f488ee7b44062304c9876b555c3d01bf
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300698
+  packageName: Japanese Sea Fish Pack
+  packageVersion: 1.0
+  assetPath: Assets/JapaneseSeaFishPack/RenderPipeline/URP/Material/Fugu_URP.mat
+  uploadId: 726713

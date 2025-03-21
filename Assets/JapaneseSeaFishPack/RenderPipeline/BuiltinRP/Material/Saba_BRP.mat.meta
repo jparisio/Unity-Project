@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 000e3bf5d93d8e44688a987733eb2a11
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300698
+  packageName: Japanese Sea Fish Pack
+  packageVersion: 1.0
+  assetPath: Assets/JapaneseSeaFishPack/RenderPipeline/BuiltinRP/Material/Saba_BRP.mat
+  uploadId: 726713

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a7e805b54d43b724abec0266ea979cf9
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300698
+  packageName: Japanese Sea Fish Pack
+  packageVersion: 1.0
+  assetPath: Assets/JapaneseSeaFishPack/RenderPipeline/BuiltinRP/Prefabs/Kasago_BRP.prefab
+  uploadId: 726713

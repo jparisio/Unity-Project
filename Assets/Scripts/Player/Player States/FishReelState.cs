@@ -35,6 +35,8 @@ public class FishReelState : IState
         if (player.fishBob == null)
         {
             player.stateMachine.ChangeState(player.idleState);
+            SpawnFish();
+            
         }
     }
 
@@ -76,5 +78,24 @@ public class FishReelState : IState
 
         GameObject.Destroy(fishBobRb.gameObject); 
     }
+
+private void SpawnFish()
+{
+    Debug.Log("Fish successfully caught!");
+    
+    // Get a random fish from the database
+    FishData randomFish = player.fishDatabase.GetRandomFish();
+
+    // Set the spawn position (near the player)
+    Vector3 spawnPosition = player.transform.position + new Vector3(2f, 0f, 2f);  // Spawn 2 units offset from the player
+
+    // Instantiate the fish prefab near the player using UnityEngine.Object.Instantiate
+    UnityEngine.Object.Instantiate(randomFish.fishPrefab, spawnPosition, Quaternion.identity);
+
+    // Debug log to show which fish was spawned
+    Debug.Log($"Spawned: {randomFish.fishName} (Rarity: {randomFish.rarity}, Value: {randomFish.value})");
+}
+
+
 
 }

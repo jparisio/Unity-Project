@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 54d45a4de741eec47b095b471ee2e3a9
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300698
+  packageName: Japanese Sea Fish Pack
+  packageVersion: 1.0
+  assetPath: Assets/JapaneseSeaFishPack/RenderPipeline/BuiltinRP/Scene/DemoScene_BRP.unity
+  uploadId: 726713

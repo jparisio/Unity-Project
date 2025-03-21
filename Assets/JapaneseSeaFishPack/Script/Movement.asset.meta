@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d1a07021a3fa6c04085bbfeb19a46319
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300698
+  packageName: Japanese Sea Fish Pack
+  packageVersion: 1.0
+  assetPath: Assets/JapaneseSeaFishPack/Script/Movement.asset
+  uploadId: 726713

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c233b29e0fc225c468b3b1c79f6779ef
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300698
+  packageName: Japanese Sea Fish Pack
+  packageVersion: 1.0
+  assetPath: Assets/JapaneseSeaFishPack/RenderPipeline/URP/Prefabs/Aji_URP.prefab
+  uploadId: 726713

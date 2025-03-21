@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 18d2d1458b26e4946b0718c7421b7084
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300698
+  packageName: Japanese Sea Fish Pack
+  packageVersion: 1.0
+  assetPath: Assets/JapaneseSeaFishPack/RenderPipeline/BuiltinRP/Material/Buri_BRP.mat
+  uploadId: 726713

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 163bcc9456d1e004ba58ccc7b96eed58
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300698
+  packageName: Japanese Sea Fish Pack
+  packageVersion: 1.0
+  assetPath: Assets/JapaneseSeaFishPack/RenderPipeline/BuiltinRP/Material/Tai_BRP.mat
+  uploadId: 726713

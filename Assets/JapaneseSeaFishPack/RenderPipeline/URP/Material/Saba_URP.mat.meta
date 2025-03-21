@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6584d9c2d9b6013498f2126ddd2f21d7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300698
+  packageName: Japanese Sea Fish Pack
+  packageVersion: 1.0
+  assetPath: Assets/JapaneseSeaFishPack/RenderPipeline/URP/Material/Saba_URP.mat
+  uploadId: 726713

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c3a9c348fe8df364996b28021c5b3407
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300698
+  packageName: Japanese Sea Fish Pack
+  packageVersion: 1.0
+  assetPath: Assets/JapaneseSeaFishPack/RenderPipeline/BuiltinRP/Material/Aji_BRP.mat
+  uploadId: 726713

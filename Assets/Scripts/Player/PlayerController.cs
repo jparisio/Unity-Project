@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
 
     public GameObject reelMinigameUI; 
 
+    public FishDatabase fishDatabase;
+
     [Header("References")]
     [SerializeField] public CharacterController characterController;
     [SerializeField] public Animator animator;

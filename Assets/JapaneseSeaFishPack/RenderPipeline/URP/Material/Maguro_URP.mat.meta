@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8a8d3df7b0f3e7c45b4404393633f49c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300698
+  packageName: Japanese Sea Fish Pack
+  packageVersion: 1.0
+  assetPath: Assets/JapaneseSeaFishPack/RenderPipeline/URP/Material/Maguro_URP.mat
+  uploadId: 726713

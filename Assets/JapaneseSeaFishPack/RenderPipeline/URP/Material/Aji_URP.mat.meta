@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b79abd1839e7d3344a5fde0d6e6aadfc
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300698
+  packageName: Japanese Sea Fish Pack
+  packageVersion: 1.0
+  assetPath: Assets/JapaneseSeaFishPack/RenderPipeline/URP/Material/Aji_URP.mat
+  uploadId: 726713

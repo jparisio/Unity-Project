@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ca74f2f71f454b942ad3a2eacf00bad1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300698
+  packageName: Japanese Sea Fish Pack
+  packageVersion: 1.0
+  assetPath: Assets/JapaneseSeaFishPack/fbx/Fugu.controller
+  uploadId: 726713

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 02c8bc5b56fd7054184e65c20eb79ea4
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300698
+  packageName: Japanese Sea Fish Pack
+  packageVersion: 1.0
+  assetPath: Assets/JapaneseSeaFishPack/RenderPipeline/URP/Prefabs/Fugu_URP.prefab
+  uploadId: 726713
