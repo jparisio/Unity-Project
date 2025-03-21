@@ -6,9 +6,6 @@ public class FishReelState : IState
     private PlayerController player;
     private float animationDuration;
     private float elapsedTime;
-
-    private const float reelDuration = 10f;
-
     private FishingReelMinigameUI reelMinigame;
 
     public FishReelState(PlayerController player){
@@ -27,6 +24,37 @@ public class FishReelState : IState
         AnimationClip castClip = player.animator.GetCurrentAnimatorClipInfo(0)[0].clip;
         animationDuration = castClip.length;
         elapsedTime = 0f;
+
+            FishData randomFish = player.fishDatabase.GetRandomFish();
+    if (player.fishBob != null)
+    {
+        // Instantiate without parenting first to get original scale
+        GameObject fishInstance = Object.Instantiate(
+            randomFish.fishPrefab,
+            player.fishBob.transform.position,
+            Quaternion.identity
+        );
+
+        // Store original scale before parenting
+        Vector3 originalScale = fishInstance.transform.localScale;
+
+        // Parent to bobber and reset local position/rotation
+        fishInstance.transform.SetParent(player.fishBob.transform, true);
+        fishInstance.transform.localPosition = Vector3.zero;
+        fishInstance.transform.localRotation = Quaternion.identity;
+
+        // Counteract parent scale to maintain original size
+        fishInstance.transform.localScale = new Vector3(
+            originalScale.x / player.fishBob.transform.localScale.x,
+            originalScale.y / player.fishBob.transform.localScale.y,
+            originalScale.z / player.fishBob.transform.localScale.z
+        );
+
+        Debug.Log($"Caught {randomFish.fishName} (Rarity: {randomFish.rarity}, Value: {randomFish.value})");
+    }
+
+
+
         ReelLine();
     }
 
@@ -34,9 +62,7 @@ public class FishReelState : IState
     {
         if (player.fishBob == null)
         {
-            player.stateMachine.ChangeState(player.idleState);
-            SpawnFish();
-            
+            player.stateMachine.ChangeState(player.idleState);            
         }
     }
 
@@ -67,7 +93,7 @@ public class FishReelState : IState
     private IEnumerator MoveFishBobToPlayer(Rigidbody fishBobRb)
     {
         yield return new WaitForSeconds(1f);
-        float speed = 5f; 
+        float speed = 7f; 
         Vector3 targetPosition = player.startLine.position;
 
         while (Vector3.Distance(fishBobRb.position, targetPosition) > 0.1f)
