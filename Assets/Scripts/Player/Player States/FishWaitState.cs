@@ -44,9 +44,7 @@ public class FishWaitState : IState
     public void Exit()
     {
         Debug.Log("Exiting fish cast State");
-        player.animator.SetBool("isWinding", false);
         player.animator.SetBool("isFishing", false);
-        player.animator.SetBool("isCasting", false);
 
         if (waitCoroutine != null)
         {

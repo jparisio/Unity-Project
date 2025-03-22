@@ -43,6 +43,7 @@ public class FishCastState : IState
     public void Exit()
     {
         Debug.Log("Exiting fish cast State"); 
+        player.animator.SetBool("isCasting", false);
     }
 
     private IEnumerator castBob()

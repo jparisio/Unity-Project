@@ -87,10 +87,6 @@ public class FishReelState : IState
     public void Exit()
     {
         Debug.Log("Exiting fish reeling State");
-
-        player.animator.SetBool("isWinding", false);
-        player.animator.SetBool("isFishing", false);
-        player.animator.SetBool("isCasting", false);
         player.animator.SetBool("isReeling", false);
 
         reelMinigame.gameObject.SetActive(false);

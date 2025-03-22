@@ -68,7 +68,7 @@ public class FishingReelMinigameUI : MonoBehaviour
         innerBar.DOKill();
         outerBar.DOKill();
 
-        innerBar.DOScale(1.3f, 0.2f).SetLoops(2, LoopType.Yoyo);
+        innerBar.DOPunchScale(Vector3.forward * .3f, 0.1f).SetLoops(2, LoopType.Yoyo);
         innerBar.DOPunchAnchorPos(new Vector2(15, 0), 0.3f, 10, 1);
         innerBar.GetComponent<Image>().color = Color.red;
     }
