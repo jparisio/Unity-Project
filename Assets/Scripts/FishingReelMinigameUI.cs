@@ -31,6 +31,7 @@ public class FishingReelMinigameUI : MonoBehaviour
 
         outerBar.DOShakeAnchorPos(1f, new Vector2(5, 5), 10, 90, false, true)
                 .SetLoops(-1, LoopType.Restart);
+        innerBar.GetComponent<Image>().color = Color.green;
     }
 
     private void Update()
@@ -69,6 +70,7 @@ public class FishingReelMinigameUI : MonoBehaviour
 
         innerBar.DOScale(1.3f, 0.2f).SetLoops(2, LoopType.Yoyo);
         innerBar.DOPunchAnchorPos(new Vector2(15, 0), 0.3f, 10, 1);
+        innerBar.GetComponent<Image>().color = Color.red;
     }
 
     public void setMoveSpeed(int value)
