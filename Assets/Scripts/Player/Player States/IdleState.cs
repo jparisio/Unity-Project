@@ -35,7 +35,7 @@ private float buffer = 0f;
         //     return;
         // }
 
-        if (Input.GetMouseButtonDown(0) && buffer <= 0f){
+        if (Input.GetMouseButtonDown(0) && buffer <= 0f && player.isInFishArea){
             player.stateMachine.ChangeState(player.fishWindState);
             return;
         }

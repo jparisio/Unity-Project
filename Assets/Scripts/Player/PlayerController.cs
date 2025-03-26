@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public Transform startLine;
     public Material fishTexture;
     public Canvas fishMeter;
+    public bool isInFishArea = false;
 
     private void Awake()
     {
