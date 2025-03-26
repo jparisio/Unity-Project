@@ -7,6 +7,7 @@ public class FishReelState : IState
     private PlayerController player;
     private FishingReelMinigameUI reelMinigame;
     private GameObject fishInstance;
+    private Coroutine reelCoroutine;
 
     public FishReelState(PlayerController player)
     {
@@ -70,15 +71,22 @@ public class FishReelState : IState
 
     public void Update()
     {
-        if (player.fishBob == null)
+        if (player.fishBob == null || reelMinigame.minigameFailed)
         {
             if(reelMinigame.minigameFailed)
             {
+                if (reelCoroutine != null)
+                {
+                    player.StopCoroutine(reelCoroutine);
+                }
                 player.stateMachine.ChangeState(player.idleState);
                 GameObject.Destroy(fishInstance);
+                GameObject.Destroy(player.fishBob.gameObject);
+                Debug.Log("Reel minigame failed!");
                 return;
             } else {
                 player.stateMachine.ChangeState(player.sliceState);
+                Debug.Log("Reel minigame succeeded!");
                 return;
             }
         }
@@ -115,6 +123,9 @@ public class FishReelState : IState
 
         while (Vector3.Distance(fishBobRb.position, targetPosition) > 0.1f)
         {
+            if (player.fishBob == null || reelMinigame.minigameFailed)
+                yield break;
+
             fishBobRb.position = Vector3.MoveTowards(fishBobRb.position, targetPosition, speed * Time.deltaTime);
             yield return null;
         }   
@@ -156,7 +167,6 @@ public class FishReelState : IState
             GameObject.Destroy(fishInstance);
             fishInstance = bakedFish; // Replace reference with baked fish
             Debug.Log($"Fish Layer: {LayerMask.LayerToName(fishInstance.layer)}");
-
         }
 
         // Add Collider
