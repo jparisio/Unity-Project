@@ -85,6 +85,7 @@ public class FishReelState : IState
                 Debug.Log("Reel minigame failed!");
                 return;
             } else {
+                MissonController.Instance.UpdateFishCaught(1);
                 player.stateMachine.ChangeState(player.sliceState);
                 Debug.Log("Reel minigame succeeded!");
                 return;
