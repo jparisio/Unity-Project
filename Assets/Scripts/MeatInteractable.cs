@@ -5,14 +5,22 @@ using UnityEngine;
 public class MeatInteractable : MonoBehaviour, IInteractable
 {
 
+     [SerializeField] private int meatValue = 10; // Set default value in Inspector
     private float minSize = 0.01f;
 
     public void Interact()
     {
         Debug.Log("Meat Interacted");
+        UIManager.Instance.AddMoney(meatValue);
         //destroy the object attatched to this script 
         Destroy(gameObject);
     }
+
+    public void SetValue(int value)
+    {
+        meatValue = value;
+    }
+
 
     void Start()
     {

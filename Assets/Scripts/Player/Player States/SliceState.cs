@@ -74,15 +74,18 @@ private float buffer = 0;
         player.animator.SetFloat("Y", -blendInput.x);
 
 
-        if (slashCount >= slashCountMax){
+        if (slashCount >= slashCountMax)
+        {
             player.stateMachine.ChangeState(player.idleState);
         }
+
     }
 
     public void Exit()
     {
         //Debug.Log("Exiting slice State");
         player.animator.SetBool("isSlicing", false);
+        // player.animator.ResetTrigger("Success");
         player.StartCoroutine(DisableCutPlane());
         player.zoomedCam.enabled = false;
         player.normalCam.enabled = true;

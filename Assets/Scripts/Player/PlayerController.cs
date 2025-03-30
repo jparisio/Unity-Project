@@ -53,6 +53,10 @@ public class PlayerController : MonoBehaviour
     public Canvas fishMeter;
     public bool isInFishArea = false;
 
+    [Tooltip("Duration of success animation in seconds")]
+    public float successAnimationLength = 2f;  // Default value, set in Inspector
+
+
     private void Awake()
     {
         InitializeStateMachine();
@@ -61,6 +65,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         stateMachine.Update();
+
     }
 
     private void InitializeStateMachine()

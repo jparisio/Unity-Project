@@ -70,28 +70,50 @@ public class FishReelState : IState
     }
 
     public void Update()
+{
+    if (player.fishBob == null || reelMinigame.minigameFailed)
     {
-        if (player.fishBob == null || reelMinigame.minigameFailed)
+        if(reelMinigame.minigameFailed)
         {
-            if(reelMinigame.minigameFailed)
+            if (reelCoroutine != null)
             {
-                if (reelCoroutine != null)
-                {
-                    player.StopCoroutine(reelCoroutine);
-                }
-                player.stateMachine.ChangeState(player.idleState);
-                GameObject.Destroy(fishInstance);
-                GameObject.Destroy(player.fishBob.gameObject);
-                Debug.Log("Reel minigame failed!");
-                return;
-            } else {
-                MissonController.Instance.UpdateFishCaught(1);
-                player.stateMachine.ChangeState(player.sliceState);
-                Debug.Log("Reel minigame succeeded!");
-                return;
+                player.StopCoroutine(reelCoroutine);
+                reelCoroutine = null;
             }
+            
+            // Clear fish bob reference first
+            if (player.fishBob != null)
+            {
+                GameObject.Destroy(player.fishBob.gameObject);
+                player.fishBob = null; // Important: Clear the reference after destruction
+            }
+            
+            if (fishInstance != null)
+            {
+                GameObject.Destroy(fishInstance);
+                fishInstance = null;
+            }
+            
+            player.stateMachine.ChangeState(player.idleState);
+            Debug.Log("Reel minigame failed!");
+            return;
+        } 
+        else 
+        {
+            if (reelCoroutine != null)
+            {
+                player.StopCoroutine(reelCoroutine);
+                reelCoroutine = null;
+            }
+            
+            MissonController.Instance.UpdateFishCaught(1);
+            player.stateMachine.ChangeState(player.sliceState);
+            Debug.Log("Reel minigame succeeded!");
+            return;
         }
     }
+}
+
 
     public void Exit()
     {
@@ -113,31 +135,53 @@ public class FishReelState : IState
         }
     }
 
-    // Coroutine to move fishBob smoothly
-    private IEnumerator MoveFishBobToPlayer(Rigidbody fishBobRb)
+private IEnumerator MoveFishBobToPlayer(Rigidbody fishBobRb)
+{
+    yield return new WaitForSeconds(1f);
+    
+    // Early exit if fish bob was destroyed during the wait
+    if (player.fishBob == null || fishBobRb == null)
+        yield break;
+
+    float speed = 7f;
+    Vector3 playerBottom = player.transform.position - new Vector3(0, player.characterController.height / 2f, 0);
+    Vector3 targetPosition = playerBottom + player.transform.forward * 3f;
+
+    // Safe get component
+    var ropeWind = player.fishBob.GetComponent<RopeWindEffect>();
+    if (ropeWind != null)
+        ropeWind.windForce = 0f;
+
+    while (Vector3.Distance(fishBobRb.position, targetPosition) > 0.1f)
     {
-        yield return new WaitForSeconds(1f);
-        float speed = 7f;
-        Vector3 playerBottom = player.transform.position - new Vector3(0, player.characterController.height / 2f, 0);
-        Vector3 targetPosition = playerBottom + player.transform.forward * 3f;
-        player.fishBob.GetComponent<RopeWindEffect>().windForce = 0f;
+        // Check both the fish bob and Rigidbody existence
+        if (player.fishBob == null || fishBobRb == null || reelMinigame.minigameFailed)
+            yield break;
 
-        while (Vector3.Distance(fishBobRb.position, targetPosition) > 0.1f)
-        {
-            if (player.fishBob == null || reelMinigame.minigameFailed)
-                yield break;
+        fishBobRb.position = Vector3.MoveTowards(fishBobRb.position, targetPosition, speed * Time.deltaTime);
+        yield return null;
+    }   
 
-            fishBobRb.position = Vector3.MoveTowards(fishBobRb.position, targetPosition, speed * Time.deltaTime);
-            yield return null;
-        }   
-
+    // Final safety check before proceeding
+    if (player.fishBob != null && !reelMinigame.minigameFailed)
         PopFishUp();
-    }
+}
+
 
     private void PopFishUp()
     {
+        if (fishInstance == null) return;
+
+
         fishInstance.SetActive(true);
         fishInstance.transform.SetParent(null);
+
+        if (player.fishBob != null)
+    {
+        GameObject.Destroy(player.fishBob.gameObject);
+        player.fishBob = null; // Clear reference after destruction
+    }
+
 
         // Convert SkinnedMeshRenderer to a static mesh
         SkinnedMeshRenderer skinnedRenderer = fishInstance.GetComponentInChildren<SkinnedMeshRenderer>();
@@ -171,7 +215,9 @@ public class FishReelState : IState
         }
 
         // Add Collider
-        AddFishCollider();
+        if (fishInstance.GetComponent<Collider>() == null)
+            AddFishCollider();
+
 
         // Add Rigidbody
         Rigidbody rb = fishInstance.AddComponent<Rigidbody>();
@@ -180,9 +226,6 @@ public class FishReelState : IState
         // Apply physics
         rb.AddForce(Vector3.up * 7f, ForceMode.Impulse);
         rb.AddTorque(Vector3.up * 6f, ForceMode.Impulse);
-
-        // Destroy the bobber
-        GameObject.Destroy(player.fishBob.gameObject);
 
         Debug.Log(fishInstance.GetComponent<MeshFilter>()?.mesh);
     }
