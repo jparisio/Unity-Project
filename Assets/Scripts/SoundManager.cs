@@ -12,6 +12,7 @@ public enum SoundType
     CAST,
     SLICE,
     MONEY,
+    POKA,
 }
 
 [RequireComponent(typeof(AudioSource))]

@@ -112,6 +112,7 @@ public class FishReelState : IState
             
             MissonController.Instance.UpdateFishCaught(1);
             player.stateMachine.ChangeState(player.sliceState);
+            SoundManager.PlaySound(SoundType.POKA, 0.5f);
             Debug.Log("Reel minigame succeeded!");
             return;
         }
