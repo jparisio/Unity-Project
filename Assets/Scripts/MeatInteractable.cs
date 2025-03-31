@@ -11,6 +11,7 @@ public class MeatInteractable : MonoBehaviour, IInteractable
     public void Interact()
     {
         Debug.Log("Meat Interacted");
+        SoundManager.PlaySound(SoundType.MONEY, 0.5f);
         UIManager.Instance.AddMoney(meatValue);
         //destroy the object attatched to this script 
         Destroy(gameObject);

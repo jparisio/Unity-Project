@@ -10,6 +10,8 @@ public enum SoundType
     FOOTSTEP,
     REELING,
     CAST,
+    SLICE,
+    MONEY,
 }
 
 [RequireComponent(typeof(AudioSource))]
@@ -30,8 +32,11 @@ public class SoundManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    public static void PlaySound(SoundType sound, float volume = 1)
+    public static void PlaySound(SoundType sound, float volume = 1, float pitch = 1)
     {
+        if (instance == null) return;
+        
+        instance.audioSource.pitch = pitch;
         instance.audioSource.PlayOneShot(instance.soundlist[(int)sound], volume);
     }
 

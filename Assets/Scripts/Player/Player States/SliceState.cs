@@ -57,6 +57,8 @@ private float buffer = 0;
         {
             // Rotate cut plane 180 degrees
             player.cutPlane.rotation *= Quaternion.Euler(0, 0, 180);
+            float randomPitch = Random.Range(0.3f, 1.7f); 
+            SoundManager.PlaySound(SoundType.SLICE, 0.5f, randomPitch);
             Slice();
             // player.impulseSource.GenerateImpulse(.1f);
             player.slashFeedbacks.PlayFeedbacks();
