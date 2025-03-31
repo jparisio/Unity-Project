@@ -19,6 +19,7 @@ public class FishCastState : IState
     public void Enter()
     {
         Debug.Log("Entering fish cast");
+        SoundManager.PlaySound(SoundType.CAST, 0.5f);
 
         player.animator.SetBool("isCasting", true);
 

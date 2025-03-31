@@ -9,6 +9,7 @@ public enum SoundType
     FAILURE,
     FOOTSTEP,
     REELING,
+    CAST,
 }
 
 [RequireComponent(typeof(AudioSource))]
