@@ -26,6 +26,8 @@ public class FishReelState : IState
 
         // Pull a random fish from the fish database
         FishData randomFish = player.fishDatabase.GetRandomFish();
+        player.currentFish = randomFish;
+        
         Debug.Log($"Caught {randomFish.fishName} (Rarity: {randomFish.rarity}, Value: {randomFish.value})");
         reelMinigame.setMoveSpeed(randomFish.value);
 

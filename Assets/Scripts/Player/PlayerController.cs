@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
 
     public FishDatabase fishDatabase;
 
+    [HideInInspector] public FishData currentFish;
+
+
     [Header("References")]
     [SerializeField] public CharacterController characterController;
     [SerializeField] public Animator animator;

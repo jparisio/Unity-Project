@@ -143,7 +143,8 @@ private float buffer = 0;
         MeshCollider collider = obj.AddComponent<MeshCollider>();
         collider.convex = true;
         //script to interact
-        obj.AddComponent<MeatInteractable>();
+        var meat = obj.AddComponent<MeatInteractable>();
+        meat.SetValue(player.currentFish.valuePerPiece); 
 
         rb.AddExplosionForce(200, obj.transform.position, 20);
     }

@@ -8,14 +8,16 @@ public class FishData
     public int difficulty;           // Difficulty (1-10)
     public int value;                // Value
     public GameObject fishPrefab;    // Model reference (prefab)
+    public int valuePerPiece;
 
-    public FishData(string name, FishRarity rarity, int difficulty, int value, GameObject fishPrefab)
+    public FishData(string name, FishRarity rarity, int difficulty, int value, GameObject fishPrefab, int valuePerPiece)
     {
         this.fishName = name;
         this.rarity = rarity;
         this.difficulty = difficulty;
         this.value = value;
         this.fishPrefab = fishPrefab;
+        this.valuePerPiece = valuePerPiece;
     }
 }
 
