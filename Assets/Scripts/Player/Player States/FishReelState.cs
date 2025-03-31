@@ -17,6 +17,8 @@ public class FishReelState : IState
 
     public void Enter()
     {
+        SoundManager.PlayLoopedSound(SoundType.REELING);
+
         Debug.Log("Entering reeling state");
 
         player.animator.SetBool("isReeling", true);
@@ -123,6 +125,7 @@ public class FishReelState : IState
         player.animator.SetBool("isReeling", false);
 
         reelMinigame.gameObject.SetActive(false);
+        SoundManager.StopLoopedSound();
     }
 
     private void ReelLine()
